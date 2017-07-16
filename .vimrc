@@ -1,5 +1,7 @@
 " No problem in not behaving like standard vi
 set nocompatible
+" Ensuring backspace behaviour to be predictable
+set backspace=indent,eol,start
 " Enabling automatic indentation
 filetype plugin indent on
 " Settings for golang dev
