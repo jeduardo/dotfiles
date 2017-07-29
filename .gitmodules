@@ -1,3 +1,6 @@
 [submodule ".tmux-themepack"]
 	path = .tmux-themepack
 	url = https://github.com/jimeh/tmux-themepack
+[submodule ".tmux-plugins/tmux-yank"]
+	path = .tmux-plugins/tmux-yank
+	url = https://github.com/tmux-plugins/tmux-yank.git
