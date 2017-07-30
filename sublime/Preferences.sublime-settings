@@ -14,5 +14,7 @@
 	],
 	"tab_size": 4,
 	"word_wrap": true,
-	"wrap_width": 120
+	"wrap_width": 120,
+	// Disable annoying preview on current tab
+	"preview_on_click": false,
 }
