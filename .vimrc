@@ -27,6 +27,8 @@ set softtabstop=2
 set ts=2
 set expandtab
 set colorcolumn=81
+set textwidth=80
+set formatoptions+=t
 syntax on
 " Fix for directional keys if using mosh
 "set t_ku=[A
