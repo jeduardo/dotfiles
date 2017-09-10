@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import argparse
+import imaplib
+import logging
+import subprocess
+
+# This script lists IMAP folders to be loaded by Mutt.
+# It depends on the companion 'credentials' script to fetch account credentials.
+# It also requires the imapclient library: pip install imapclient
+# https://stackoverflow.com/questions/12776679/imap-folder-path-encoding-imap-utf-7-for-python
+from imapclient import imap_utf7
+
+# Script setup
+parser = argparse.ArgumentParser(description='Small script to list IMAP remote folders for mutt')
+parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
+parser.add_argument("-s", "--server", help="specify remote IMAP server", type=str)
+parser.add_argument("-a", "--account", help="specify remote IMAP server", type=str)
+args = parser.parse_args()
+# Parsing arguments
+if args.verbose:
+    logging.basicConfig(level=logging.DEBUG)
+logging.debug('Server: %s' % args.server)
+logging.debug('Account: %s' % args.account)
+command = ['$HOME/.mutt/credentials %s mail' % args.account]
+logging.debug('Command: %s' % command)
+# Retrieve credentials
+result = subprocess.run(command, stdout=subprocess.PIPE, shell=True)
+password = result.stdout.decode('utf-8').strip()
+# Connect to server
+mail = imaplib.IMAP4_SSL(args.server)
+mail.login(args.account, password)
+result, folders = mail.list()
+# Retrieve folder list
+all_folders = []
+for folder in folders:
+    tokens = imap_utf7.decode(folder).split('" ')
+    if 'HasChildren' not in tokens[0]:
+        all_folders.append(tokens[1])
+# Print folder list in a way that mutt understands
+print(' +'.join(all_folders))

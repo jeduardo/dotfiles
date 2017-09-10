@@ -1,0 +1,107 @@
+# Default shared configuration
+
+# Email accounts configuration
+source ~/.mutt/accounts
+
+# Authenticators for macOS
+set smtp_authenticators = 'gssapi:login'
+
+# Configuration for email formats (HTML, etc) 
+#if there is only html dump that 
+auto_view text/html 
+# this helps with multipart messages 
+alternative_order text/plain text/enriched text/html 
+set mailcap_path = ~/.mutt/mailcap 
+
+# Caching setup
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+set certificate_file = "~/.mutt/certificates"
+
+# Content setup (needs vim to be on board)
+set text_flowed
+set editor=vim
+
+# Charset configuration 
+set assumed_charset="utf-8:iso-8859-1:us-ascii" 
+set charset="utf-8" 
+set config_charset="utf-8" 
+set send_charset="utf-8:iso-8859-1:us-ascii" 
+set ascii_chars 
+ 
+# Message sorting options 
+# set sort = threads 
+set mark_old = no 
+set sort=reverse-threads
+set sort_aux=date-received
+
+# User interface configuration
+set sidebar_visible = yes
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set sidebar_sort_method = alpha
+set mail_check_stats
+# Navigate sidebar with control + P, N, O
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open
+
+# activate TLS if available on the server 
+set ssl_starttls=yes 
+# always use SSL when connecting to a server 
+set ssl_force_tls=yes 
+
+# Don't wait to enter mailbox manually  
+unset imap_passive         
+# List subscribed mailboxes
+#set imap_list_subscribed
+# Automatically poll subscribed mailboxes for new mail (new in 1.5.11) 
+set imap_check_subscribed 
+# Reduce polling frequency to a sane level 
+set mail_check=60 
+# And poll the current mailbox more often (not needed with IDLE in post 1.5.11) 
+set timeout=10
+
+# Colors
+color normal white default
+color attachment brightyellow default
+color hdrdefault cyan default
+color indicator black cyan
+color markers brightred default
+color quoted  brightcyan default
+color signature cyan default
+color status  brightgreen blue
+color tilde blue default
+color tree  red default
+
+color index red default ~P
+color index brightred default ~D
+color index magenta default ~T
+
+color header brightgreen default ^From:
+color header brightcyan default ^To:
+color header brightcyan default ^Reply-To:
+color header brightcyan default ^Cc:
+color header brightblue default ^Subject:
+
+# identifies email addresses
+color body  brightgreen default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+
+# identifies URLs
+color body  brightblue default (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+
+# GnuPG
+color body black red "BAD signature .*$"
+
+# Tag a good signature
+color body brightgreen default "Good signature .*$"
+
+# Inform the signature can't be verified
+color body brightred default "Can't check signature: public key not found"
+color body brightred default "WARNING: .*!"
+color body brightred default "some signal caught ... exiting"
+
+# https://dev.mutt.org/trac/wiki/UseCases/Gmail
+# https://www.neomutt.org/feature/sidebar-intro
+# https://unix.stackexchange.com/questions/50476/sorting-threads-in-mutt
+# http://www.mdlerch.com/emailing-mutt-and-vim-advanced-config.html
+# https://superuser.com/questions/273826/why-my-mutt-black-background-looks-gray

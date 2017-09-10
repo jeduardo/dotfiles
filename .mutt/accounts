@@ -1,0 +1,15 @@
+# Account list configuration
+
+# Folder hooks to load proper configuration per account
+folder-hook 'gmail.com' 'source ~/.mutt/account-gmail'
+folder-hook 'gmx.net' 'source ~/.mutt/account-gmx'
+
+# Macros to navigate between accounts
+macro index <esc>1 '<sync-mailbox><refresh><enter-command>unmailboxes *<enter><enter-command>source ~/.mutt/account-gmail<enter><change-folder>imaps://imap.gmail.com<enter>'
+macro index <esc>2 '<sync-mailbox><refresh><enter-command>unmailboxes *<enter><enter-command>source ~/.mutt/account-gmx<enter><change-folder>imaps://imap.gmx.net<enter>'
+
+# read default account on startup
+source ~/.mutt/account-default
+
+# https://www.df7cb.de/blog/2010/Using_multiple_IMAP_accounts_with_Mutt.html
+# https://gist.github.com/miguelmota/9456162

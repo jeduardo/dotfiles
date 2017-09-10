@@ -1,0 +1,30 @@
+# Configuration for gmx
+set my_gmx_from = "My Name <mymail@gmx.net>"
+set my_gmx_folder = imaps://imap.gmx.net/
+set my_gmx_postponed = "=Drafts"
+set my_gmx_spoolfile = +INBOX
+set my_gmx_record = "=Sent"
+set my_gmx_user = "mymail@gmx.net"
+set my_gmx_pass = `$HOME/.mutt/credentials mymail@gmx.net mail`
+set my_gmx_smtp = "smtp://$imap_user@smtp.gmx.net:587/"
+# Configuration for the current session in case of default account
+set from = $my_gmx_from
+set folder = $my_gmx_folder
+set postponed = $my_gmx_postponed
+set spoolfile = $my_gmx_spoolfile
+set record = $my_gmx_record
+set imap_user = $my_gmx_user
+set imap_pass = $my_gmx_pass
+set smtp_pass = $my_gmx_pass
+set smtp_url = $my_gmx_smtp
+# Repeating all configuration in the account hook in case of switch
+account-hook gmx.net 'set imap_user = $my_gmx_user \
+from = $my_gmx_from \
+folder = $my_gmx_folder \
+postponed = $my_gmx_postponed \
+spoolfile = $my_gmx_spoolfile \
+record = $my_gmx_record \
+imap_pass = $my_gmx_pass \
+smtp_pass = $my_gmx_pass \
+smtp_url = $my_gmx_smtp'
+mailboxes `~/.mutt/imap-list -s imap.gmx.net -a mymail@gmx.net`
