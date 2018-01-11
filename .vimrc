@@ -30,6 +30,7 @@ set colorcolumn=81
 set textwidth=80
 set formatoptions+=t
 set cursorline
+set laststatus=2
 syntax on
 " Fix for directional keys if using mosh
 "set t_ku=[A
@@ -38,3 +39,5 @@ syntax on
 "set t_kr=[C
 " Better theme for remote console
 color desert
+" airline configuration
+let g:airline_powerline_fonts = 1 
