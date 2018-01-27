@@ -1,12 +1,13 @@
 ! Terminal common config
 #define TERMFONT xft:DejaVu Sans Mono for Powerline:size=9
+! #define TERMFONT xft:Input Mono:size=9
 #define TERMFG #c0c0c0
 #define TERMBG #000000
 #define TERMSCROLLBACK 10000
 
 ! Font rendering configuration for applications that do not use fontconfig
 Xft.antialias: true
-Xft.autohint: false
+Xft.autohint: true
 Xft.dpi: 96
 Xft.hinting: true
 Xft.hintstyle: hintfull
