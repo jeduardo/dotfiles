@@ -167,3 +167,6 @@ exec "xinput set-prop 11 \"Synaptics Scrolling Distance\" -237 -237"
 
 # Set background to desktops
 exec "feh --bg-scale ~/.i3background"
+
+# Enable dropbox
+exec "/usr/bin/dropbox start"
