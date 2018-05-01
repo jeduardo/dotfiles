@@ -163,7 +163,7 @@ bar {
 exec "setxkbmap -layout us_intl"
 
 # Configure natural scrolling for the synaptics touchpad
-exec "xinput set-prop 11 \"Synaptics Scrolling Distance\" -237 -237"
+exec "~/.i3/scripts/scrolling"
 
 # Set background to desktops
 exec "feh --bg-scale ~/.i3background"
