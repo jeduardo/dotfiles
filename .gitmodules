@@ -7,3 +7,6 @@
 [submodule ".vim/pack/dist/start/vim-airline"]
 	path = .vim/pack/dist/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline
+[submodule ".vim/pack/dist/start/rust.vim"]
+	path = .vim/pack/dist/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim
