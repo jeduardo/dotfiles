@@ -170,6 +170,9 @@ exec "setxkbmap -layout us_intl"
 # Configure natural scrolling for the synaptics touchpad
 exec "~/.i3/scripts/scrolling"
 
+# Enable gnome settings daemon for managing the appearance of GTK-based apps
+exec "/usr/bin/gnome-settings-daemon"
+
 # Set background to desktops
 exec "feh --bg-scale ~/.i3background"
 
