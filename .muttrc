@@ -44,6 +44,8 @@ set mail_check_stats
 bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
 bind index,pager \CO sidebar-open
+# Toggle sidebar visibiity
+bind index,pager \CB sidebar-toggle-visible
 
 # activate TLS if available on the server 
 set ssl_starttls=yes 
