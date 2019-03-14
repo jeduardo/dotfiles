@@ -14,7 +14,7 @@ PERCENTAGE=$2
 # awk multiplication thanks to
 # https://www.linuxquestions.org/questions/linux-software-2/multiply-floats-in-bash-script-618691/
 if [ "x$LEVEL" == "x" ]; then
-  LEVEL="$(xrandr --verbose | grep -i brightness | cut -d ':' -f 2 | tr -d '[:space:]')"
+  LEVEL="$(xrandr --verbose | grep -i brightness | head -1 | cut -d ':' -f 2 | tr -d '[:space:]')"
   LEVEL="$(echo $LEVEL 100 | awk '{printf "%4.0f\n",$1*$2}')"
 fi
 
@@ -37,6 +37,7 @@ if [ $LEVEL -lt 0 ]; then
     exit 1;
 fi
 brightness_level="$(( $LEVEL / 100)).$(( $LEVEL % 100 ))"
-screenname=$(xrandr | grep " connected" | cut -f1 -d" ")
-xrandr --output $screenname --brightness $brightness_level;
-echo -e "[info]: Screen Brightness level set to" $LEVEL"%"
+for screenname in $(xrandr | grep " connected" | cut -f1 -d" "); do
+    xrandr --output $screenname --brightness $brightness_level;
+    echo -e "[info]: Screen Brightness level on $screenname set to" $LEVEL"%"
+done
