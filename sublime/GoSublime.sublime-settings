@@ -1,0 +1,6 @@
+{
+	"env": {
+		"GOROOT": "/home/jeduardo/.goenv/versions/1.12.3",
+		"GOPATH": "/home/jeduardo/go/1.12.3"
+	}
+}
