@@ -1,13 +1,27 @@
 #!/bin/bash
 # Starting up window manager with "natural scrolling"
-# Old method using xinput
-# xinput set-prop 11 "Synaptics Scrolling Distance" -237 -237
 # New method using synclient - https://askubuntu.com/questions/690512/how-to-enable-natural-scrolling-in-xfce4
-i=$(synclient | grep VertScrollDelta | awk '//{ print $3}')
-if (($i >= 0)); then
-  let i=i*-1
-  synclient VertScrollDelta=$i
-  echo "Natural scrolling is now enabled"
+
+command -v synclient >/dev/null 2>&1
+if (($? == 0)); then
+  # Use new method with synclient
+  i=$(synclient | grep VertScrollDelta | awk '//{ print $3}')
+  if (($i >= 0)); then
+    let i=i*-1
+    synclient VertScrollDelta=$i
+    echo "Natural scrolling is now enabled"
+  else
+    echo "Natural scrolling is already enabled"
+  fi
 else
-  echo "Natural scrolling is already enabled"
+  scrolling=$(xinput list-props 11 | grep "Synaptics Scrolling Distance" | cut -f 2 -d ':')
+  scroll1=$(echo $scrolling | awk '//{print $1}' | sed 's/,//')
+  scroll2=$(echo $scrolling | awk '//{print $2}' | sed 's/,//')
+  if [[ $scroll1 =~ ^- ]]; then
+    echo "Natural scrolling is already enabled"
+  else
+    xinput set-prop 11 "Synaptics Scrolling Distance" -$scroll1 -$scroll2
+    echo "Natural scrolling is now enabled"
+
+  fi
 fi
