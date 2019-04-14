@@ -2,7 +2,8 @@
 # Starting up window manager with "natural scrolling"
 # New method using synclient - https://askubuntu.com/questions/690512/how-to-enable-natural-scrolling-in-xfce4
 
-command -v synclient >/dev/null 2>&1
+# Looking for broadcom driver
+xinput | grep bcm5974 2>&1 1>/dev/null
 if (($? == 0)); then
   # Use new method with synclient
   i=$(synclient | grep VertScrollDelta | awk '//{ print $3}')
