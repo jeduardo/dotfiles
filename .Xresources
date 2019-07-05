@@ -31,7 +31,7 @@ XTerm*rightScrollBar: true
 XTerm*jumpScroll: true
 XTerm*multiScroll: true
 XTerm*toolBar: true
-XTerm*tremName: xterm-256color
+XTerm*termName: xterm-256color
 
 ! urxvt config
 URxvt*saveLines: TERMSCROLLBACK
