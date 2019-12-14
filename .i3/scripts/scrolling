@@ -3,7 +3,7 @@
 # New method using synclient - https://askubuntu.com/questions/690512/how-to-enable-natural-scrolling-in-xfce4
 
 # Looking for broadcom driver
-xinput | grep bcm5974 2>&1 1>/dev/null
+xinput | grep -E "(bcm5974|Synaptics)" 2>&1 1>/dev/null
 if (($? == 0)); then
   # Use new method with synclient
   i=$(synclient | grep VertScrollDelta | awk '//{ print $3}')
