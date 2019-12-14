@@ -36,9 +36,9 @@ XTerm*termName: xterm-256color
 ! urxvt config
 URxvt*saveLines: TERMSCROLLBACK
 URxvt.scrollBar: false
-URxvt*depth: 32
+URxvt.depth: 32
 !URxvt*background: rgba:0000/0000/0000/DDDD
-URxvt*background: [85]#000000
+URxvt*background: [90]#000000
 URxvt*foreground: #c0c0c0
 URxvt*cursorColor: #c0c0c0
 URxvt*cursorBlink: false
