@@ -1,5 +1,5 @@
 ! Terminal common config
-#define TERMFONT xft:DejaVu Sans Mono for Powerline:size=9
+#define TERMFONT xft:DejaVu Sans Mono for Powerline:pixelsize=13
 ! #define TERMFONT xft:Input Mono:size=9
 #define TERMFG #c0c0c0
 #define TERMBG #000000
@@ -65,7 +65,7 @@ URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
 URxvt.perl-ext-common: default,matcher,tabbed,fullscreen
 URxvt.font: TERMFONT
-URxvt.boldFont: 
+URxvt.boldFont:
 URxvt.letterSpace: -2
 !! Copy and paste as the other linux terminal
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
