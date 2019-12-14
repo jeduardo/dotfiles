@@ -192,6 +192,9 @@ exec "/usr/lib/gnome-settings-daemon/gsd-xsettings"
 # Add bluetooth management support
 exec "/usr/bin/blueman-applet"
 
+# Add network management support
+exec "/usr/bin/nm-applet"
+
 # Set background to desktop
 # Do this by linking an image to ~/.i3background
 exec "feh --bg-scale ~/.i3background"
