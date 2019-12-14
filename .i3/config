@@ -43,11 +43,12 @@ bindsym $mod+d exec "rofi -show-icons -modi combi -show combi -comb-modi run,dru
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-# change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+# change focus - not needed as navigation is also configured with the cursor
+# keys.
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -117,8 +118,9 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-# Lock screen with Control+Alt+l
+# Lock screen with Control+Alt+l and mod+l
 bindsym Control+mod1+l exec "~/apps/i3lock-fancy/lock"
+bindsym $mod+l exec "~/apps/i3lock-fancy/lock"
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
