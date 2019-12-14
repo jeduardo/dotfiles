@@ -175,12 +175,23 @@ exec "setxkbmap -layout us_intl"
 # Configure natural scrolling for the synaptics touchpad
 exec "~/.i3/scripts/scrolling"
 
+# Enabling keychain support
+exec "dbus-update-activation-environment --systemd DISPLAY"
+exec "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh && export SSH_AUTH_SOCK"
+
 # Enable gnome settings daemon for managing the appearance of GTK-based apps
-exec "/usr/bin/gnome-settings-daemon"
+# This doesn't exist anymore.
+# exec "/usr/bin/gnome-settings-daemon"
+exec "/usr/lib/gnome-settings-daemon/gsd-xsettings"
+
+# Add bluetooth management support
+exec "/usr/bin/blueman-applet"
 
 # Set background to desktop
 # Do this by linking an image to ~/.i3background
 exec "feh --bg-scale ~/.i3background"
 
 # Enable dropbox
-exec "/usr/bin/dropbox start"
+# exec "/usr/bin/dropbox start"
+
+exec i3
