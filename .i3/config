@@ -175,9 +175,12 @@ bar {
 }
 
 # Pulse Audio controls with statusbar refresh
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%; exec pkill -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%; exec pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle; exec pkill -RTMIN+10 i3blocks
+#bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%; exec pkill -RTMIN+10 i3blocks
+#bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%; exec pkill -RTMIN+10 i3blocks
+#bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle; exec pkill -RTMIN+10 i3blocks
+bindsym XF86AudioRaiseVolume exec ~/.i3/scripts/pactl-all set-sink-volume +5%; exec pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec ~/.i3/scripts/pactl-all set-sink-volume -5%; exec pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec ~/.i3/scripts/pactl-all set-sink-mute toggle; exec pkill -RTMIN+10 i3blocks
 
 # Set keyboard layout to us_intl
 exec "setxkbmap -layout us_intl"

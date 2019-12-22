@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Propagate pactl commands to all sinks
+
+total=$(pactl list sinks | grep ^Sink | wc -l)
+
+count=0
+while (( $count < $total )); do
+  pactl $1 $count ${2-}
+  let count=$count+1
+done
