@@ -205,9 +205,12 @@ exec --no-startup-id "/usr/bin/nm-applet"
 
 # Set background to desktop
 # Do this by linking an image to ~/.i3background
-exec "feh --bg-scale ~/.i3background"
+exec --no-startup-id "feh --bg-scale ~/.i3background"
 
 # Enable dropbox
 # exec "/usr/bin/dropbox start"
+
+# Enable xautolock to use fancy screen locker
+exec --no-startup-id "/usr/bin/xautolock -time 10 -locker ~/apps/i3lock-fancy/lock"
 
 exec i3
