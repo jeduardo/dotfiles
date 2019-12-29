@@ -182,11 +182,14 @@ bindsym XF86AudioRaiseVolume exec ~/.i3/scripts/pactl-all set-sink-volume +5%; e
 bindsym XF86AudioLowerVolume exec ~/.i3/scripts/pactl-all set-sink-volume -5%; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute exec ~/.i3/scripts/pactl-all set-sink-mute toggle; exec pkill -RTMIN+10 i3blocks
 
+# Disable keyboard  beep
+exec --no-startup-id "xset b off"
+
 # Set keyboard layout to us_intl
-exec "setxkbmap -layout us_intl"
+exec --no-startup-id "setxkbmap -layout us_intl"
 
 # Configure natural scrolling for the synaptics touchpad
-exec "~/.i3/scripts/scrolling"
+exec --no-startup-id "~/.i3/scripts/scrolling"
 
 # Enabling keychain support
 exec --no-startup-id "dbus-update-activation-environment --systemd DISPLAY"
