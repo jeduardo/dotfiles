@@ -2,7 +2,7 @@
 
 # For whatever reason it doesn't work if I use the full name
 # intel-virtual-output
-INTEL_PROCESS=intel-virtual
+INTEL_PROCESS=intel-
 PGREP=/usr/bin/pgrep
 PKILL=/usr/bin/pkill
 PS=/bin/ps
