@@ -63,12 +63,23 @@ cursor:
   # window is not focused.
   unfocused_hollow: true
 shell:
+  #program: /usr/bin/tmux
   program: /usr/bin/zsh
-#  args:
-#    - --login
+  args:
+    - --login
 
 
-#key_bindings:
+# Find characters by running xxd -psd
+# Need to restart alacritty for them to work if setting it up from zero
+key_bindings:
+  # Bindings for tmux
+  - { key: N,        mods: Control|Shift, chars: "\x01\x63" } # open window
+  - { key: W,        mods: Control|Shift, chars: "\x01\x26" } # close window
+  - { key: H,        mods: Command|Shift, chars: "\x01\x2d" } # split window horizontally
+  - { key: V,        mods: Command|Shift, chars: "\x01\x7c" } # split window vertically
+  - { key: S,        mods: Command|Shift, chars: "\x01\x73" } # toggle synchronize panes
+  - { key: M,        mods: Command|Shift, chars: "\x01\x6d" } # toggle mouse
+  - { key: 0,        mods: Command|Shift, chars: "\x01\x30" } # move to tab 0
   # (Windows/Linux only)
   #- { key: V,        mods: Control|Shift, action: Paste            }
   #- { key: C,        mods: Control|Shift, action: Copy             }
