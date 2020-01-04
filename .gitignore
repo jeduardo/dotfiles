@@ -4,3 +4,4 @@
 .mutt/account-gmx
 .mutt/attachments
 .vim/plugged
+*.sw*
