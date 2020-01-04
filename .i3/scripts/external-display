@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# For whatever reason it doesn't work if I use the full name
-# intel-virtual-output
-INTEL_PROCESS=intel-
-PGREP=/usr/bin/pgrep
-PKILL=/usr/bin/pkill
+INTEL_PROCESS=intel-virtual-output
+GREP=/usr/bin/grep
+CUT=/usr/bin/cut
 PS=/bin/ps
 XRANDR=/usr/bin/xrandr
 FEH=/usr/bin/feh
@@ -12,16 +10,14 @@ FEH=/usr/bin/feh
 $PGREP -U $USER $INTEL_PROCESS > /dev/null
 if (($? == 0)); then
   # Intel virtual output is running
-  $PS a | grep 'Xorg :8' >/dev/null
-  if (($? == 0)); then
-    #  Optimus X server is running
-    echo 'External display is ON, switching it off'
-    $PKILL -U $USER $INTEL_PROCESS &&
-    echo 'External display is now OFF'
-  fi
+  # We will detect it solely by this binary so we can reset the display in the
+  # case that Xorg segfaults for whatever reason.
+  echo 'External display is ON, switching it off'
+  $PS ux | $GREP intel-virtual-output | $GREP $USER | $GREP -v grep | $CUT -d ' ' -f 3
+  echo 'External display is now OFF'
 else
   echo 'External display is OFF, switching it on'
-  $INTEL_PROCESS-output &&
+  $INTEL_PROCESS &&
   $XRANDR --output VIRTUAL1 --mode VIRTUAL1.447-2560x1440 --above eDP1 &&
   $FEH --bg-scale ~/.i3background
   echo 'External display is now ON'
