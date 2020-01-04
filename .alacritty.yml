@@ -72,14 +72,15 @@ shell:
 # Find characters by running xxd -psd
 # Need to restart alacritty for them to work if setting it up from zero
 key_bindings:
-  # Bindings for tmux
-  - { key: N,        mods: Control|Shift, chars: "\x01\x63" } # open window
+  # Bindings for tmux inspired by terminator
+  - { key: T,        mods: Control|Shift, chars: "\x01\x63" } # open tab
   - { key: W,        mods: Control|Shift, chars: "\x01\x26" } # close window
-  - { key: H,        mods: Command|Shift, chars: "\x01\x2d" } # split window horizontally
-  - { key: V,        mods: Command|Shift, chars: "\x01\x7c" } # split window vertically
-  - { key: S,        mods: Command|Shift, chars: "\x01\x73" } # toggle synchronize panes
-  - { key: M,        mods: Command|Shift, chars: "\x01\x6d" } # toggle mouse
-  - { key: 0,        mods: Command|Shift, chars: "\x01\x30" } # move to tab 0
+  - { key: O,        mods: Control|Shift, chars: "\x01\x2d" } # split window horizontally
+  - { key: E,        mods: Control|Shift, chars: "\x01\x7c" } # split window vertically
+  - { key: G,        mods: Control|Shift, chars: "\x01\x73" } # toggle synchronize panes
+  - { key: M,        mods: Control|Shift, chars: "\x01\x6d" } # toggle mouse
+  - { key: N,        mods: Control|Shift, chars: "\x01\x6e" } # move to next tab
+  - { key: P,        mods: Control|Shift, chars: "\x01\x70" } # move to previous tab
   # (Windows/Linux only)
   #- { key: V,        mods: Control|Shift, action: Paste            }
   #- { key: C,        mods: Control|Shift, action: Copy             }
