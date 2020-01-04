@@ -37,6 +37,7 @@ Plug 'bfrg/vim-cpp-modern'
 call plug#end()
 
 " Plugin configuration
+let g:go_version_warning = 0 "Allow the config to run on Debian stretch
 let g:dracula_colorterm = 0
 colorscheme dracula
 let g:airline_theme='dracula'
