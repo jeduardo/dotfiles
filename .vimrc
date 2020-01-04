@@ -3,10 +3,15 @@ set nocompatible
 " Ensuring backspace behaviour to be predictable
 set backspace=indent,eol,start
 " Fix for directional keys if using mosh
+" TODO: run only if inside a mosh session
 " set t_ku=[A
 " set t_kl=[D
 " set t_kd=[B
 " set t_kr=[C
+
+"Allow correct mouse behaviour inside tmux
+set ttymouse=xterm2
+set mouse=a
 
 " General editing settings
 set tabstop=2
