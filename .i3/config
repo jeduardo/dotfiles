@@ -213,6 +213,16 @@ bindsym XF86AudioRaiseVolume exec $volumepath -np -i $volumestep -t $statuscmd -
 bindsym XF86AudioLowerVolume exec $volumepath -np -d $volumestep -t $statuscmd -u $statussig
 bindsym XF86AudioMute        exec $volumepath -mn -t $statuscmd -u $statussig
 
+# Set screenshot commands
+# - selection capture to clipboard
+bindsym $mod+Shift+s exec "~/.i3/scripts/screenshot selection"
+# - fullscreen to clipboard
+bindsym $mod+Shift+f exec "~/.i3/scripts/screenshot fullscreen"
+# - selection capture to file
+bindsym $mod+Shift+Control+s exec "~/.i3/scripts/screenshot selection-file"
+# - fullscreen to file
+bindsym $mod+Shift+Control+f exec "~/.i3/scripts/screenshot fullscreen-file"
+
 # Disable keyboard  beep
 exec --no-startup-id "xset b off"
 
@@ -240,9 +250,6 @@ exec --no-startup-id "/usr/bin/nm-applet"
 # Set background to desktop
 # Do this by linking an image to ~/.i3background
 exec --no-startup-id "feh --bg-scale ~/.i3background"
-
-# Enable dropbox
-# exec "/usr/bin/dropbox start"
 
 # Enable xautolock to use fancy screen locker
 exec --no-startup-id "/usr/bin/xautolock -time 10 -locker ~/apps/i3lock-fancy/lock"

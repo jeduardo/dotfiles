@@ -1,0 +1,30 @@
+#!/bin/bash
+
+MAIM=/usr/bin/maim
+XCLIP=/usr/bin/xclip
+NOTIFY=/usr/bin/notify-send
+DIRECTORY=$HOME/Pictures
+TITLE=Capture
+SELECTION=~/Pictures/screen-selection-$(date +%Y-%m-%d-%H-%M-%S).png 
+FULL=~/Pictures/screen-$(date +%Y-%m-%d-%H-%M-%S).png 
+
+case $1 in
+  selection)
+    $MAIM -s | $XCLIP -selection clipboard -t image/png && 
+    $NOTIFY $TITLE "Screen selection copied to clipboard"
+    ;;
+  fullscreen)
+    $MAIM | xclip -selection clipboard -t image/png &&
+    $NOTIFY $TITLE "Fullscreen copied to clipboard"
+    ;;
+  selection-file)
+    $MAIM -s $SELECTION &&
+    $NOTIFY $TITLE "Screen selection saved to $SELECTION"
+    ;;
+  fullscreen-file)
+    $MAIM $FULL && 
+    $NOTIFY $TITLE "Fullscreen saved to $FULL"
+    ;;
+  *)
+    echo "$0 <selection|fullscreen|selection-file|fullscreen-file>"
+esac
