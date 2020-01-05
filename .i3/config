@@ -226,8 +226,8 @@ bindsym $mod+Shift+Control+f exec "~/.i3/scripts/screenshot fullscreen-file"
 # Disable keyboard  beep
 exec --no-startup-id "xset b off"
 
-# Set keyboard layout to us_intl
-exec --no-startup-id "setxkbmap -layout us_intl"
+# Set keyboard layout to us intl with dead keys and altgr
+exec --no-startup-id "setxkbmap -layout us -variant intl"
 
 # Configure natural scrolling for the synaptics touchpad
 exec --no-startup-id "~/.i3/scripts/scrolling"
