@@ -7,17 +7,19 @@ PS=/bin/ps
 XRANDR=/usr/bin/xrandr
 FEH=/usr/bin/feh
 
-$PS ux | $GREP $INTEL_PROCESS | $GREP $USER | $GREP -v grep > /dev/null
+$PS ux | $GREP $INTEL_PROCESS | $GREP -v grep | $GREP $USER
 if (($? == 0)); then
   # Intel virtual output is running
   # We will detect it solely by this binary so we can reset the display in the
   # case that Xorg segfaults for whatever reason.
   echo 'External display is ON, switching it off'
-  $PS ux | $GREP $INTEL_PROCESS | $GREP $USER | $GREP -v grep | $CUT -d ' ' -f 3
+  PID=$($PS ux | $GREP $INTEL_PROCESS | $GREP -v grep | $GREP $USER | $CUT -d ' ' -f 2)
+  kill $PID
   echo 'External display is now OFF'
 else
   echo 'External display is OFF, switching it on'
   $INTEL_PROCESS &&
+  sleep 1 &&
   $XRANDR --output VIRTUAL1 --mode VIRTUAL1.447-2560x1440 --above eDP1 &&
   $FEH --bg-scale ~/.i3background
   echo 'External display is now ON'
