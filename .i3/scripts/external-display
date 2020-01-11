@@ -13,7 +13,7 @@ if (($? == 0)); then
   # We will detect it solely by this binary so we can reset the display in the
   # case that Xorg segfaults for whatever reason.
   echo 'External display is ON, switching it off'
-  PID=$($PS ux | $GREP $INTEL_PROCESS | $GREP -v grep | $GREP $USER | $CUT -d ' ' -f 2)
+  PID=$($PS aux | $GREP $INTEL_PROCESS | $GREP -v grep | $GREP $USER | $CUT -d ' ' -f 3)
   kill $PID
   echo 'External display is now OFF'
 else
