@@ -247,6 +247,10 @@ exec --no-startup-id "/usr/bin/blueman-applet"
 # Add network management support
 exec --no-startup-id "/usr/bin/nm-applet"
 
+# Add opening keepass on login for credential management
+# Store secret with `secret-tool store --label "keepass <database>" keepass <database>
+exec --no-startup-id "secret-tool lookup keepass secrets | keepassxc --pw-stdin ~/gdrive/secret/secrets.kdbx"
+
 # Set background to desktop
 # Do this by linking an image to ~/.i3background
 exec --no-startup-id "feh --bg-scale ~/.i3background"
