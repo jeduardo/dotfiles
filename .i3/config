@@ -260,7 +260,7 @@ exec --no-startup-id "feh --bg-scale ~/.i3background"
 exec --no-startup-id "/usr/bin/xautolock -time 10 -locker ~/apps/i3lock-fancy/lock"
 
 # Change keyboard repeat rate and delay
-# Delay: 160ms / Repeat rate: 40
-exec --no-startup-id "xset r rate 160 40"
+# Delay: 260ms / Repeat rate: 30
+exec --no-startup-id "xset r rate 260 30"
 
 exec i3
