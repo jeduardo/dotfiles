@@ -53,3 +53,5 @@ let g:airline_theme='dracula'
 let g:airline_powerline_fonts = 1
 let g:python_highlight_all = 1
 let g:vim_markdown_folding_disabled = 1
+
+set number
