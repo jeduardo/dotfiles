@@ -10,6 +10,9 @@ SYNTAX="\\n \\t SYNTAX:  dimmer level \\n \\t Where 'level' ranges from 0 to 100
 FUNC=$1
 PERCENTAGE=$2
 
+NOTIFY=/usr/bin/notify-send
+TITLE=Brightness
+
 # If no level was specified, then get the current brightness and change nothing.
 # awk multiplication thanks to
 # https://www.linuxquestions.org/questions/linux-software-2/multiply-floats-in-bash-script-618691/
@@ -39,5 +42,7 @@ fi
 brightness_level="$(( $LEVEL / 100)).$(( $LEVEL % 100 ))"
 for screenname in $(xrandr | grep " connected" | cut -f1 -d" "); do
     xrandr --output $screenname --brightness $brightness_level;
-    echo -e "[info]: Screen Brightness level on $screenname set to" $LEVEL"%"
+    MSG="[info]: Screen Brightness level on ${screenname} set to ${LEVEL}%"
+    echo $MSG
+    $NOTIFY $TITLE "$MSG"
 done
