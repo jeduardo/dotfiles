@@ -120,8 +120,8 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # Lock screen with Control+Alt+l and mod+l
-bindsym Control+mod1+l exec "~/apps/i3lock-fancy/lock"
-bindsym $mod+l exec "~/apps/i3lock-fancy/lock"
+bindsym Control+mod1+l exec "~/.i3/i3lock-fancy/lock"
+bindsym $mod+l exec "~/.i3/i3lock-fancy/lock"
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
