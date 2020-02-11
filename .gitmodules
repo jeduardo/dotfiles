@@ -16,3 +16,4 @@
 [submodule ".i3/i3lock-fancy"]
 	path = .i3/i3lock-fancy
 	url = https://github.com/jeduardo/i3lock-fancy.git
+  branch = dualmonitors-forked
