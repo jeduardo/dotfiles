@@ -1,0 +1,50 @@
+#!/bin/bash
+
+PROPERTY=$1
+OPTION=$2
+
+if [ "x$PROPERTY" == "x" ]; then
+  echo "$0 <property> [toggle|reverse]"
+  exit -1
+fi
+
+if [ "x$OPTION" == "x" ]; then
+  OPTION=toggle
+fi
+
+# Looking for broadcom driver
+xinput | grep -E "(bcm5974|Synaptics)" 2>&1 1>/dev/null
+if (($? == 0)); then
+  i=$(synclient | grep $PROPERTY | awk '//{ print $3}')
+  case $OPTION in
+    reverse)
+      let i=i*-1
+      ;;
+    toggle)
+      case $i in
+        0)
+          i=1
+          ;;
+        1)
+          i=0
+          ;;
+        *)
+          echo "Toggle can only be applied over binary values"
+          exit -1
+      esac
+      ;;
+    on)
+      i=1
+      ;;
+    off)
+      i=0
+      ;;
+    *)
+      i=$2
+      ;;
+  esac
+  synclient $PROPERTY=$i
+  echo "$PROPERTY is set to $i"
+else
+  echo "Synaptics driver not detected"
+fi

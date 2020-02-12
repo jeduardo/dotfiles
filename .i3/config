@@ -236,6 +236,10 @@ exec --no-startup-id "setxkbmap -layout us -variant intl"
 # Configure natural scrolling for the synaptics touchpad
 exec --no-startup-id "~/.i3/scripts/scrolling"
 
+# Enable natural horizontal scrolling
+exec --no-startup-id "~/.i3/scripts/synaptics HorizTwoFingerScroll on"
+exec --no-startup-id "~/.i3/scripts/synaptics HorizScrollDelta reverse"
+
 # Enabling keychain support
 exec --no-startup-id "dbus-update-activation-environment --systemd DISPLAY"
 exec --no-startup-id "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh && export SSH_AUTH_SOCK"
