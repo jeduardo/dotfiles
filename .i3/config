@@ -136,6 +136,9 @@ bindsym $mod+Shift+e exec "~/.i3/scripts/i3-exit"
 bindsym XF86MonBrightnessUp exec ~/.i3/scripts/brightness inc 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec ~/.i3/scripts/brightness dec 10 # decrease screen brightness
 
+bindsym XF86KbdBrightnessUp exec ~/.i3/scripts/kbdbrightness inc 10
+bindsym XF86KbdBrightnessDown exec ~/.i3/scripts/kbdbrightness dec 10
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
