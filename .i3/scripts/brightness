@@ -10,6 +10,8 @@ SYNTAX="\\n \\t SYNTAX:  dimmer level \\n \\t Where 'level' ranges from 0 to 100
 FUNC=$1
 PERCENTAGE=$2
 
+MIN_PERCENTAGE=0
+MAX_PERCENTAGE=100
 NOTIFY=/usr/bin/notify-send
 TITLE=Brightness
 
@@ -30,12 +32,12 @@ case $FUNC in
     ;;
 esac
 
-if [ $LEVEL -gt 100 ]; then
+if [ $LEVEL -gt $MAX_PERCENTAGE ]; then
     echo -e $SYNTAX;
     exit 1;
 fi
 
-if [ $LEVEL -lt 0 ]; then
+if [ $LEVEL -lt $MIN_PERCENTAGE ]; then
     echo -e $SYNTAX;
     exit 1;
 fi
