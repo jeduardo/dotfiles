@@ -14,7 +14,7 @@ STEPS=20
 FUNC=$1
 
 if [ "x$FUNC" == "x" ]; then
-  echo "$0 <inc|dec>"
+  echo "$0 <inc|dec|info>"
   exit 1
 fi
 
@@ -23,7 +23,7 @@ MAX_LINES=$($XRANDR | $WC -l)
 # Run through all connected displays
 for screenname in $($XRANDR --verbose | grep " connected" | $CUT -f1 -d" "); do
   # Get current backlight 
-  BACKLIGHT=$($XRANDR --verbose | $GREP BACKLIGHT | $CUT -d ':' -f 2 | $SED 's/^[[:space:]]*//')
+  BACKLIGHT=$($XRANDR --verbose | $GREP BACKLIGHT | $CUT -d ':' -f 2 | $SED 's/\s//g')
   # Get brightness ranges for the display being processed
   LIMITS=$($XRANDR --verbose | $GREP -A $MAX_LINES $screenname | $GREP -A 1 BACKLIGHT | $GREP range | $CUT -d : -f 2 | tr '()' ' ')
   LOWER_LIMIT=$(echo $LIMITS | $CUT -d , -f 1)
@@ -33,6 +33,10 @@ for screenname in $($XRANDR --verbose | grep " connected" | $CUT -f1 -d" "); do
     NEW_BACKLIGHT=$($BC <<< "scale=0; $BACKLIGHT + $UPPER_LIMIT / $STEPS")
   elif [ "$FUNC" == "dec" ]; then
     NEW_BACKLIGHT=$($BC <<< "scale=0; $BACKLIGHT - $UPPER_LIMIT / $STEPS")
+  elif [ "$FUNC" == "info" ]; then
+    PERCENTAGE=$($BC <<< "scale=0; 100 * $BACKLIGHT / $UPPER_LIMIT")
+    echo $PERCENTAGE
+    exit 0
   fi
   # Wrap values around boundaries
   if (( $NEW_BACKLIGHT < 0 )); then
