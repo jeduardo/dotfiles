@@ -9,6 +9,7 @@ GREP=/bin/grep
 WC=/usr/bin/wc
 BC=/usr/bin/bc
 CUT=/usr/bin/cut
+PKILL=/usr/bin/pkill
 SED=/bin/sed
 STEPS=20
 FUNC=$1
@@ -35,7 +36,7 @@ for screenname in $($XRANDR --verbose | grep " connected" | $CUT -f1 -d" "); do
     NEW_BACKLIGHT=$($BC <<< "scale=0; $BACKLIGHT - $UPPER_LIMIT / $STEPS")
   elif [ "$FUNC" == "info" ]; then
     PERCENTAGE=$($BC <<< "scale=0; 100 * $BACKLIGHT / $UPPER_LIMIT")
-    echo $PERCENTAGE
+    echo "$PERCENTAGE%"
     exit 0
   fi
   # Wrap values around boundaries
@@ -46,6 +47,7 @@ for screenname in $($XRANDR --verbose | grep " connected" | $CUT -f1 -d" "); do
   fi
   # Apply new backlight
   $XRANDR --output $screenname --set BACKLIGHT $NEW_BACKLIGHT
+  $PKILL -RTMIN+10 i3blocks
   # Calculate percentage
   PERCENTAGE=$($BC <<< "scale=0; 100 * $NEW_BACKLIGHT / $UPPER_LIMIT")
   MSG="[info]: Screen Brightness level on ${screenname} set to ${PERCENTAGE}%"
