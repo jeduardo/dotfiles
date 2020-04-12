@@ -1,50 +1,50 @@
 #!/bin/bash
 
-# Bash script to control the monitor brightness
-# Source:
-# http://sandipbgt.com/2015/10/01/control-screen-brightness-from-commandline-in-ubuntu/
+# Brightness control level script
 
-
-SYNTAX="\\n \\t SYNTAX:  dimmer level \\n \\t Where 'level' ranges from 0 to 100.\\n";
-
-FUNC=$1
-PERCENTAGE=$2
-
-MIN_PERCENTAGE=0
-MAX_PERCENTAGE=100
 NOTIFY=/usr/bin/notify-send
 TITLE=Brightness
+XRANDR=/usr/bin/xrandr
+GREP=/bin/grep
+WC=/usr/bin/wc
+BC=/usr/bin/bc
+CUT=/usr/bin/cut
+SED=/bin/sed
+STEPS=40
+FUNC=$1
 
-# If no level was specified, then get the current brightness and change nothing.
-# awk multiplication thanks to
-# https://www.linuxquestions.org/questions/linux-software-2/multiply-floats-in-bash-script-618691/
-if [ "x$LEVEL" == "x" ]; then
-  LEVEL="$(xrandr --verbose | grep -i brightness | head -1 | cut -d ':' -f 2 | tr -d '[:space:]')"
-  LEVEL="$(echo $LEVEL 100 | awk '{printf "%4.0f\n",$1*$2}')"
+if [ "x$FUNC" == "x" ]; then
+  echo "$0 <inc|dec>"
+  exit 1
 fi
 
-case $FUNC in
-  "inc")
-    LEVEL=$(($LEVEL + $PERCENTAGE))
-    ;;
-  "dec")
-    LEVEL=$(($LEVEL - $PERCENTAGE))
-    ;;
-esac
+MAX_LINES=$($XRANDR | $WC -l)
 
-if [ $LEVEL -gt $MAX_PERCENTAGE ]; then
-    echo -e $SYNTAX;
-    exit 1;
-fi
-
-if [ $LEVEL -lt $MIN_PERCENTAGE ]; then
-    echo -e $SYNTAX;
-    exit 1;
-fi
-brightness_level="$(( $LEVEL / 100)).$(( $LEVEL % 100 ))"
-for screenname in $(xrandr | grep " connected" | cut -f1 -d" "); do
-    xrandr --output $screenname --brightness $brightness_level;
-    MSG="[info]: Screen Brightness level on ${screenname} set to ${LEVEL}%"
-    echo $MSG
-    $NOTIFY $TITLE "$MSG"
+# Run through all connected displays
+for screenname in $($XRANDR --verbose | grep " connected" | $CUT -f1 -d" "); do
+  # Get current backlight 
+  BACKLIGHT=$($XRANDR --verbose | $GREP BACKLIGHT | $CUT -d ':' -f 2 | $SED 's/^[[:space:]]*//')
+  # Get brightness ranges for the display being processed
+  LIMITS=$($XRANDR --verbose | $GREP -A $MAX_LINES $screenname | $GREP -A 1 BACKLIGHT | $GREP range | $CUT -d : -f 2 | tr '()' ' ')
+  LOWER_LIMIT=$(echo $LIMITS | $CUT -d , -f 1)
+  UPPER_LIMIT=$(echo $LIMITS | $CUT -d , -f 2 | $SED 's/^[[:space:]]*//')
+  # Calculate new brightness value
+  if [ "$FUNC" == "inc" ]; then
+    NEW_BACKLIGHT=$($BC <<< "scale=0; $BACKLIGHT + $UPPER_LIMIT / $STEPS")
+  elif [ "$FUNC" == "dec" ]; then
+    NEW_BACKLIGHT=$($BC <<< "scale=0; $BACKLIGHT - $UPPER_LIMIT / $STEPS")
+  fi
+  # Wrap values around boundaries
+  if (( $NEW_BACKLIGHT < 0 )); then
+    NEW_BACKLIGHT=0
+  elif (( $NEW_BACKLIGHT > $UPPER_LIMIT )); then
+    NEW_BACKLIGHT=$UPPER_LIMIT 
+  fi
+  # Apply new backlight
+  $XRANDR --output $screenname --set BACKLIGHT $NEW_BACKLIGHT
+  # Calculate percentage
+  PERCENTAGE=$($BC <<< "scale=0; 100 * $NEW_BACKLIGHT / $UPPER_LIMIT")
+  MSG="[info]: Screen Brightness level on ${screenname} set to ${PERCENTAGE}%"
+  echo $MSG
+  $NOTIFY $TITLE "$MSG"
 done
