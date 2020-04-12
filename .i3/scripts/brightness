@@ -10,7 +10,7 @@ WC=/usr/bin/wc
 BC=/usr/bin/bc
 CUT=/usr/bin/cut
 SED=/bin/sed
-STEPS=40
+STEPS=20
 FUNC=$1
 
 if [ "x$FUNC" == "x" ]; then
