@@ -68,6 +68,9 @@ shell:
   args:
     - --login
 
+mouse:
+  url:
+    modifiers: Control
 
 # Find characters by running xxd -psd
 # Need to restart alacritty for them to work if setting it up from zero
