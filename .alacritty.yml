@@ -84,6 +84,8 @@ key_bindings:
   - { key: M,        mods: Control|Shift, chars: "\x01\x6d" } # toggle mouse
   - { key: N,        mods: Control|Shift, chars: "\x01\x6e" } # move to next tab
   - { key: P,        mods: Control|Shift, chars: "\x01\x70" } # move to previous tab
+  # Utility keys
+  - { key: N,        mods: Super|Shift, action: SpawnNewInstance }
   # (Windows/Linux only)
   #- { key: V,        mods: Control|Shift, action: Paste            }
   #- { key: C,        mods: Control|Shift, action: Copy             }
