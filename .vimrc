@@ -43,6 +43,7 @@ Plug 'saltstack/salt-vim'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'vim-ruby/vim-ruby'
+Plug 'm-kat/aws-vim'
 
 call plug#end()
 
@@ -54,5 +55,6 @@ let g:airline_theme='dracula'
 let g:airline_powerline_fonts = 1
 let g:python_highlight_all = 1
 let g:vim_markdown_folding_disabled = 1
+let g:AWSVimValidate = 1
 
 set number
