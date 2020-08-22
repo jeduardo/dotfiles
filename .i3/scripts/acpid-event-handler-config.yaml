@@ -1,0 +1,2 @@
+events:
+  button/lid LID close: /home/jeduardo/.i3/i3lock-fancy/lock

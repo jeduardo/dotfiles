@@ -266,6 +266,9 @@ exec --no-startup-id "feh --bg-scale ~/.i3background"
 # Enable xautolock to use fancy screen locker
 exec --no-startup-id "/usr/bin/xautolock -time 10 -locker ~/.i3/i3lock-fancy/lock"
 
+# Also enable daemon that locks the screen of the lid is closed
+exec --no-startup-id "~/.i3/scripts/acpid-event-handler"
+
 # Change keyboard repeat rate and delay
 # Delay: 260ms / Repeat rate: 30
 exec --no-startup-id "xset r rate 260 30"

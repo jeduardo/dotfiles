@@ -1,0 +1,104 @@
+#!/usr/bin/env python3
+
+import argparse
+import logging
+import socket
+import subprocess
+import sys
+import yaml
+
+
+from os.path import expanduser
+
+
+class ACPIEventHandler(object):
+
+    def __init__(self,
+                 log_level=logging.INFO,
+                 config_path="~/.config/acpid-events/config.yaml",
+                 acpid_path="/var/run/acpid.socket"):
+        self.config = self.load_config(expanduser(config_path))
+        self.logger = self.create_logger(log_level)
+        self.sock = self.connect_to_acpid(expanduser(acpid_path))
+
+    def create_logger(self, log_level):
+        logger = logging.getLogger(__name__)
+        handler = logging.StreamHandler(sys.stdout)
+        formatter = logging.Formatter(
+            "%(asctime)s:%(name)s:%(levelname)s:%(message)s")
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+        logger.setLevel(log_level)
+        return logger
+
+    def connect_to_acpid(self, socket_path, timeout=10):
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock.settimeout(timeout)
+        sock.connect(socket_path)
+        self.logger.info("Connection to acpid is open")
+        return sock
+
+    def listen(self, bufsize=1024):
+        while True:
+            try:
+                data = self.sock.recv(bufsize)
+                if len(data) == 0:
+                    break
+                ev = data.decode("us-ascii").strip()
+                self.process(ev)
+            except socket.timeout:
+                pass
+        self.logger.warn("Connection to acpid is closed")
+
+    def load_config(self, location):
+        with open(location, "r") as f:
+            return yaml.load(f, Loader=yaml.SafeLoader)
+
+    def execute(self, cmd):
+        proc = subprocess.Popen([cmd],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        self.logger.debug("Command executed: {}".format(cmd))
+        stdout, stderr = proc.communicate()
+        self.logger.debug("stdout: {}".format(stdout))
+        self.logger.debug("stderr: {}".format(stderr))
+
+    def process(self, event):
+        events = self.config.get("events", {})
+        cmd = events.get(event, None)
+        if cmd:
+            self.logger.debug("Executing command \"{}\"".format(cmd))
+            self.execute(cmd)
+        else:
+            self.logger.warning(
+                "Event \"{}\" not found in event config, ignoring"
+                .format(event))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--debug", "-d",
+                        action="store_true",
+                        help="run the application in debug mode")
+    parser.add_argument("--config", "-c",
+                        default="~/.config/acpid-events/config.yaml",
+                        help=("custom path for the YAML config file. "
+                              "The default path is "
+                              "~/.config/acpid-events/config.yaml"))
+    parser.add_argument("--socket", "-s",
+                        default="/var/run/acpid.socket",
+                        help=("Custom path to the acpid socket. "
+                              "Default path is /var/run/acpid.socket"))
+    args = parser.parse_args()
+
+    if args.debug:
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+    handler = ACPIEventHandler(log_level=logging.INFO,
+                               config_path=args.config,
+                               acpid_path=args.socket)
+    try:
+        handler.listen()
+    except KeyboardInterrupt:
+        handler.logger.info("Terminating acpid event reader")
