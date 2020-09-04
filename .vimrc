@@ -44,6 +44,10 @@ Plug 'bfrg/vim-cpp-modern'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'vim-ruby/vim-ruby'
 Plug 'm-kat/aws-vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -56,5 +60,24 @@ let g:airline_powerline_fonts = 1
 let g:python_highlight_all = 1
 let g:vim_markdown_folding_disabled = 1
 let g:AWSVimValidate = 1
+let g:rustfmt_autosave = 1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusline = ''
 
 set number
+
+" Key Mappings
+nnoremap <silent> <C-n> :TagbarToggle<CR>
+nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
