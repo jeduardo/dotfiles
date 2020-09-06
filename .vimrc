@@ -1,3 +1,8 @@
+" Share config between vim and neovim
+" mkdir -p ~/.local/share/nvim/
+" ln -s ~/.vim ~/.local/share/nvim/site
+" ln -s ~/.vimrc .config/nvim/init.vim
+
 " No problem in not behaving like standard vi
 set nocompatible
 " Ensuring backspace behaviour to be predictable
@@ -10,7 +15,9 @@ set backspace=indent,eol,start
 " set t_kr=[C
 
 "Allow correct mouse behaviour inside tmux
-set ttymouse=xterm2
+if !has('nvim')
+  set ttymouse=xterm2
+endif
 set mouse=a
 
 " General editing settings
@@ -48,6 +55,8 @@ Plug 'vim-syntastic/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -68,6 +77,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" NERDTree configuration
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
@@ -76,8 +86,41 @@ let g:NERDTreeStatusline = ''
 set number
 
 " Key Mappings
-nnoremap <silent> <C-n> :TagbarToggle<CR>
+nnoremap <silent> <C-T> :TagbarToggle<CR>
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+" File Finder
+nnoremap <C-p> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}
+
+if has('nvim')
+  " open new split panes to right and below
+  set splitright
+  set splitbelow
+  " turn terminal to normal mode with escape
+  tnoremap <Esc> <C-\><C-n>
+  " start terminal in insert mode
+  au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+  " open terminal on ctrl+n
+  function! OpenTerminal()
+    split term://zsh
+      resize 20
+      endfunction
+      nnoremap <c-n> :call OpenTerminal()<CR>
+
+  " use alt+hjkl to move between split/vsplit panels
+  tnoremap <A-h> <C-\><C-n><C-w>h
+  tnoremap <A-j> <C-\><C-n><C-w>j
+  tnoremap <A-k> <C-\><C-n><C-w>k
+  tnoremap <A-l> <C-\><C-n><C-w>l
+  nnoremap <A-h> <C-w>h
+  nnoremap <A-j> <C-w>j
+  nnoremap <A-k> <C-w>k
+  nnoremap <A-l> <C-w>l
+end
 
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
