@@ -17,7 +17,7 @@ set backspace=indent,eol,start
 " Utility variables
 let oldversion = 0
 if has('nvim')
-  let oldversion = !has('nvim-0.3.8')
+  let oldversion = !has('nvim-0.4.3')
 else
   let oldversion = !has('patch-8.1.1719')
 endif
