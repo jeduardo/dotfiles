@@ -14,6 +14,14 @@ set backspace=indent,eol,start
 " set t_kd=[B
 " set t_kr=[C
 
+" Utility variables
+let oldversion = 0
+if has('nvim')
+  let oldversion = !has('nvim-0.3.8')
+else
+  let oldversion = !has('patch-8.1.1719')
+endif
+
 "Allow correct mouse behaviour inside tmux
 if !has('nvim')
   set ttymouse=xterm2
@@ -57,8 +65,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+if oldversion == 0
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 call plug#end()
 
 " Plugin configuration
@@ -86,7 +95,9 @@ let g:NERDTreeStatusline = ''
 
 " Also run pip install jedi
 " and :CocInstall coc-python coc-rls coc-rust-analyzer coc-json
+if oldversion == 0
 source $HOME/.vim/config/coc.vim
+endif
 
 set number
 
