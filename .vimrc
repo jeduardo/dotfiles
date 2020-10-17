@@ -3,6 +3,10 @@
 " ln -s ~/.vim ~/.local/share/nvim/site
 " ln -s ~/.vimrc .config/nvim/init.vim
 
+" Compatibility with vim
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+
 " No problem in not behaving like standard vi
 set nocompatible
 " Ensuring backspace behaviour to be predictable
@@ -49,7 +53,7 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-python/python-syntax'
-Plug 'fatih/vim-go'
+"Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
@@ -94,7 +98,10 @@ let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 
 " Also run pip install jedi
-" and :CocInstall coc-python coc-rls coc-rust-analyzer coc-json
+" and :CocInstall coc-cfn-lint coc-clangd coc-css coc-cssmodules
+" coc-html coc-json coc-python coc-rls coc-rust-analyzer coc-sh coc-sql
+" coc-tsserver coc-vimlsp coc-xml coc-yaml
+" More extensions at https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
 if oldversion == 0
 source $HOME/.vim/config/coc.vim
 endif

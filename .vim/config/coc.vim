@@ -1,3 +1,6 @@
+" Set Coc config location
+let g:coc_config_home="$HOME/.vim/config/"
+
 " TextEdit might fail if hidden is not set.
 set hidden
 
