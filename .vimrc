@@ -57,6 +57,7 @@ Plug 'vim-python/python-syntax'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'saltstack/salt-vim'
 Plug 'bfrg/vim-cpp-modern'
