@@ -65,6 +65,14 @@ debug_file=$tmpdir/debug
 # debug.  yes or no.
 #debug="no"
 debug="yes"
+os=$(uname -s)
+
+if [ "$os" = "Darwin" ]; then
+    open=open
+else
+    open=xdg-open
+fi
+
 
 type=$2
 open_with=$3
@@ -121,7 +129,11 @@ fi
 # Otherwise we've been told what to use.  So do an open -a.
 
 if [ -z $open_with ]; then
-    open $newfile
+    $open $newfile 2>/dev/null
 else
-    open -a "$open_with" $newfile
+    if [ "$os" = "Darwin" ]; then
+        open -a "$open_with" $newfile
+    else
+        $open_with $newfile
+    fi
 fi
