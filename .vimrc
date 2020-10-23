@@ -55,6 +55,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-python/python-syntax'
 "Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
@@ -68,16 +69,18 @@ Plug 'm-kat/aws-vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
-Plug 'ryanoasis/vim-devicons'
+Plug 'justinmk/vim-sneak'
+"Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'mhinz/vim-startify'
 if oldversion == 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 call plug#end()
 
 " Plugin configuration
-let g:go_version_warning = 0 "Allow the config to run on Debian stretch
 let g:dracula_colorterm = 0
 colorscheme dracula
 let g:airline_theme='dracula'
@@ -86,6 +89,7 @@ let g:python_highlight_all = 1
 let g:vim_markdown_folding_disabled = 1
 let g:AWSVimValidate = 1
 let g:rustfmt_autosave = 1
+" Syntastic Config
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -98,6 +102,11 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
+" Rainbow parenthesis config
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+autocmd FileType * RainbowParentheses
+" Startify config
+let g:startify_session_dir = '~/.vim/session'
 
 " Also run pip install jedi
 " and :CocInstall coc-cfn-lint coc-clangd coc-css coc-cssmodules
