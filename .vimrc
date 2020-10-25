@@ -159,3 +159,9 @@ end
 
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Syntax highlight fixes
+augroup asm
+  au!
+  autocmd BufNewFile,BufRead *.asm,*.nasm set syntax=nasm
+augroup END
