@@ -1,3 +1,5 @@
 dotfiles:
   config/alacritty/linux.yml:
     linux: ~/.alacritty.yml
+  config/alacritty/mac.yml:
+    linux: ~/.alacritty.yml
