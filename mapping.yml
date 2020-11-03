@@ -1,0 +1,3 @@
+dotfiles:
+  config/alacritty/linux.yml:
+    linux: ~/.alacritty.yml
