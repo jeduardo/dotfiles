@@ -1,6 +1,7 @@
 " Share config between vim and neovim
 " mkdir -p ~/.local/share/nvim/
 " ln -s ~/.vim ~/.local/share/nvim/site
+" mkdir -p ~/.config/nvim/
 " ln -s ~/.vimrc .config/nvim/init.vim
 
 " Compatibility with vim
@@ -75,6 +76,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'mhinz/vim-startify'
+Plug 'Shirk/vim-gas'
 if oldversion == 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
@@ -160,8 +162,12 @@ end
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Syntax highlight fixes
-augroup asm
+" Syntax highlight fixes for assembly
+augroup nasm
   au!
-  autocmd BufNewFile,BufRead *.asm,*.nasm set syntax=nasm
+  autocmd BufNewFile,BufRead *.nasm set syntax=nasm
+augroup END
+augroup gas
+  au!
+  autocmd BufNewFile,BufRead *.S,*.as set syntax=gas
 augroup END
