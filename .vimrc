@@ -80,6 +80,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'mhinz/vim-startify'
 Plug 'Shirk/vim-gas'
+Plug 'wincent/vim-clipper'
 if oldversion == 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
@@ -113,6 +114,9 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 autocmd FileType * RainbowParentheses
 " Startify config
 let g:startify_session_dir = '~/.vim/session'
+" Clipper config
+let g:ClipperAddress='~/.clipper.sock'
+let g:ClipperPort=0
 
 " Also run pip install jedi
 " and :CocInstall coc-cfn-lint coc-clangd coc-css coc-cssmodules
