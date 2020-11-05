@@ -46,7 +46,7 @@ set cursorline
 set laststatus=2
 
 " Install vim-plug before calling it
-source $HOME/.vim/config/coc.vim
+source $HOME/.vim/config/plug.vim
 
 " Plugin catalog
 call plug#begin('~/.vim/plugged')
