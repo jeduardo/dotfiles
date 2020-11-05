@@ -102,6 +102,9 @@ color body brightred default "Can't check signature: public key not found"
 color body brightred default "WARNING: .*!"
 color body brightred default "some signal caught ... exiting"
 
+# Prevent backspace from aborting prompt
+set abort_backspace = no
+
 # https://dev.mutt.org/trac/wiki/UseCases/Gmail
 # https://www.neomutt.org/feature/sidebar-intro
 # https://unix.stackexchange.com/questions/50476/sorting-threads-in-mutt
