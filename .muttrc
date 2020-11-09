@@ -40,6 +40,8 @@ set sidebar_visible = yes
 set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 set sidebar_sort_method = alpha
 set mail_check_stats
+# Show message list after opening message
+set pager_index_lines=10
 # Navigate sidebar with control + P, N, O
 bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
