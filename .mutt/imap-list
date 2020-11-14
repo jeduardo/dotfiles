@@ -38,4 +38,4 @@ for folder in folders:
     if 'HasChildren' not in tokens[0]:
         all_folders.append(tokens[1])
 # Print folder list in a way that mutt understands
-print(' +'.join(all_folders))
+print(" ".join(["+{}".format(f) for f in all_folders]))
