@@ -6,7 +6,7 @@
     "yaml",
     "json",
     "golang",
-    "rust",
+    "rust"
   ],
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
@@ -34,5 +34,34 @@
       }
     }
   },
-  "clangd.path": "/usr/lib/llvm-8/bin/clangd"
+  "clangd.path": "/usr/lib/llvm-8/bin/clangd",
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "*-template.json"
+      ],
+      "url": "https://s3.amazonaws.com/cfn-resource-specifications-us-east-1-prod/schemas/2.15.0/all-spec.json"
+    }
+  ],
+  "yaml.customTags": [
+    "!And",
+    "!If",
+    "!Not",
+    "!Equals",
+    "!Or",
+    "!FindInMap",
+    "!Base64",
+    "!Cidr",
+    "!Ref",
+    "!Sub",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!Select",
+    "!Split",
+    "!Join"
+  ],
+  "yaml.schemas": {
+    "https://s3.amazonaws.com/cfn-resource-specifications-us-east-1-prod/schemas/2.15.0/all-spec.json": "*-template.yaml"
+  }
 }

@@ -169,6 +169,9 @@ end
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" TODO: move this all to filetype plugins?
+" https://superuser.com/questions/632657/how-to-setup-vim-to-edit-both-makefile-and-normal-code-files
+
 " Syntax highlight fixes for assembly
 augroup nasm
   au!
@@ -178,3 +181,4 @@ augroup gas
   au!
   autocmd BufNewFile,BufRead *.S,*.as set syntax=gas
 augroup END
+
