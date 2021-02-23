@@ -168,6 +168,7 @@ bindsym $mod+r mode "resize"
 # Enable/disable external display
 bindcode --release 133 exec ~/.i3/scripts/external-display
 bindsym $mod+shift+p  exec ~/.i3/scripts/external-display
+bindsym $mod+p move workspace to output right
 
 # Start composite manager (for effects and transparency)
 #exec "/usr/bin/xcompmgr -c -f -n"
@@ -254,10 +255,6 @@ exec --no-startup-id "/usr/bin/blueman-applet"
 
 # Add network management support
 exec --no-startup-id "/usr/bin/nm-applet"
-
-# Add opening keepass on login for credential management
-# Store secret with `secret-tool store --label "keepass <database>" keepass <database>
-exec --no-startup-id "secret-tool lookup keepass secrets | keepassxc --pw-stdin ~/gdrive/secret/secrets.kdbx"
 
 # Set background to desktop
 # Do this by linking an image to ~/.i3background
