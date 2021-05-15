@@ -11,30 +11,7 @@
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
   "python.formatting.provider": "black",
-  "languageserver": {
-    "ccls": {
-      "command": "ccls",
-      "filetypes": [
-        "c",
-        "cpp",
-        "objc",
-        "objcpp"
-      ],
-      "rootPatterns": [
-        ".ccls",
-        "compile_commands.json",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls"
-        }
-      }
-    }
-  },
-  "clangd.path": "/usr/lib/llvm-8/bin/clangd",
+  "clangd.path": "/usr/bin/clangd-11",
   "json.schemas": [
     {
       "fileMatch": [
@@ -63,5 +40,12 @@
   ],
   "yaml.schemas": {
     "https://s3.amazonaws.com/cfn-resource-specifications-us-east-1-prod/schemas/2.15.0/all-spec.json": "*-template.yaml"
-  }
+  },
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-16",
+      "path": "/usr/lib/jvm/java-16-amazon-corretto",
+      "default": true
+    }
+  ]
 }
