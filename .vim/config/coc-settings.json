@@ -43,9 +43,13 @@
   },
   "java.configuration.runtimes": [
     {
+      "name": "JavaSE-11",
+      "path": "/usr/lib/jvm/java-11-amazon-corretto",
+      "default": true
+    },
+    {
       "name": "JavaSE-16",
       "path": "/usr/lib/jvm/java-16-amazon-corretto",
-      "default": true
     }
   ]
 }
