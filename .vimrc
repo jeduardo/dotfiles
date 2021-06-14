@@ -84,6 +84,9 @@ Plug 'wincent/vim-clipper'
 if oldversion == 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
+
+Plug 'rhysd/vim-clang-format', {'for' : ['c', 'cpp']}
+
 call plug#end()
 
 " Plugin configuration
@@ -117,6 +120,8 @@ let g:startify_session_dir = '~/.vim/session'
 " Clipper config
 let g:ClipperAddress='~/.clipper.sock'
 let g:ClipperPort=0
+" clang format config
+let g:clang_format#auto_format=1
 
 " Also run pip install jedi
 " and :CocInstall coc-cfn-lint coc-clangd coc-css coc-cssmodules
