@@ -166,8 +166,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Enable/disable external display
-bindcode --release 133 exec ~/.i3/scripts/external-display
-bindsym $mod+shift+p  exec ~/.i3/scripts/external-display
+#bindcode --release 133 exec ~/.i3/scripts/external-display
+#bindsym $mod+shift+p  exec ~/.i3/scripts/external-display
 bindsym $mod+p move workspace to output right
 
 # Start composite manager (for effects and transparency)
