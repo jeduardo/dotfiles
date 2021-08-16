@@ -248,7 +248,7 @@ exec --no-startup-id "/usr/bin/gnome-keyring-daemon --start --components=pkcs11,
 # Enable gnome settings daemon for managing the appearance of GTK-based apps
 # This doesn't exist anymore.
 # exec "/usr/bin/gnome-settings-daemon"
-exec --no-startup-id "/usr/lib/gnome-settings-daemon/gsd-xsettings"
+exec --no-startup-id "/usr/libexec/gsd-xsettings"
 
 # Add bluetooth management support
 exec --no-startup-id "/usr/bin/blueman-applet"
