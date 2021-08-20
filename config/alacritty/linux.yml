@@ -68,9 +68,18 @@ shell:
   args:
     - --login
 
-mouse:
-  url:
-    modifiers: Control
+hints:
+  enabled:
+   - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+             [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+     command: xdg-open
+     post_processing: true
+     mouse:
+       enabled: true
+       mods: Control
+     binding:
+       key: U
+       mods: Control|Shift
 
 # Find characters by running xxd -psd
 # Need to restart alacritty for them to work if setting it up from zero
