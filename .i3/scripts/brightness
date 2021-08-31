@@ -2,7 +2,8 @@
 
 # Brightness control level script
 
-NOTIFY=/usr/bin/notify-send
+EXPIRES=1500
+NOTIFY="/usr/bin/notify-send -t $EXPIRES"
 TITLE=Brightness
 XRANDR=/usr/bin/xrandr
 GREP=/bin/grep
@@ -21,6 +22,24 @@ fi
 
 MAX_LINES=$($XRANDR | $WC -l)
 
+# Generates a progress bar for the provided value.
+# Utility function lifted from i3-volume
+#
+# Arguments:
+#   Percentage      (integer) Percentage of progress.
+#   Maximum         (integer) Maximum percentage. (default: 100)
+#   Divisor         (integer) For calculating the ratio of blocks to progress (default: 5)
+#
+# Returns:
+#   The progress bar.
+get_progress_bar() {
+    local percent="$1"
+    local max_percent=${2:-100}
+    local divisor=${3:-4}
+    local progress=$((($percent > $max_percent ? $max_percent : $percent) / $divisor))
+
+    printf '█%.0s' $(eval echo "{1..$progress}")
+}
 # Run through all connected displays
 for screenname in $($XRANDR --verbose | grep " connected" | $CUT -f1 -d" "); do
   # Get current backlight 
@@ -49,8 +68,9 @@ for screenname in $($XRANDR --verbose | grep " connected" | $CUT -f1 -d" "); do
   $XRANDR --output $screenname --set BACKLIGHT $NEW_BACKLIGHT
   # Calculate percentage
   PERCENTAGE=$($BC <<< "scale=0; 100 * $NEW_BACKLIGHT / $UPPER_LIMIT")
-  MSG="[info]: Screen Brightness level on ${screenname} set to ${PERCENTAGE}%"
+  PROGRESS=$(get_progress_bar "$PERCENTAGE")
+  MSG="${screenname}: ${PERCENTAGE}% $PROGRESS"
   echo $MSG
-  $NOTIFY $TITLE "$MSG"
+  $NOTIFY $TITLE -h int:value:"$PERCENTAGE" -h string:synchronous:brightness "$MSG"
   $PKILL -RTMIN+10 i3blocks
 done
