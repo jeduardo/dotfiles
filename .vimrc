@@ -107,6 +107,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_sh_shellcheck_args="--external-sources"
+let g:loaded_syntastic_java_javac_checker = 1
 " NERDTree configuration
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
