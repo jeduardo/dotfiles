@@ -43,20 +43,19 @@
   },
   "java.configuration.runtimes": [
     {
-      "name": "JavaSE-11",
-      "path": "/usr/lib/jvm/java-11-amazon-corretto",
+      "name": "JavaSE-15",
+      "path": "/usr/lib/jvm/java-15-amazon-corretto",
       "default": true
-    },
-    {
-      "name": "JavaSE-16",
-      "path": "/usr/lib/jvm/java-16-amazon-corretto",
     }
   ],
   "languageserver": {
     "terraform": {
       "command": "terraform-lsp",
-      "filetypes": ["terraform"],
+      "filetypes": [
+        "terraform"
+      ],
       "initializationOptions": {}
     }
-  }
+  },
+  "java.import.gradle.enabled": true
 }
