@@ -1,22 +1,28 @@
 #!/usr/bin/env python3
 
-# based on cb-exit used in CrunchBang Linux <http://crunchbanglinux.org/>
-# Copied from https://pastebin.com/raw/CbTsNMVF and modified to use systemctl
-# and properly lock the screen before suspend.
+"""
+based on cb-exit used in CrunchBang Linux <http://crunchbanglinux.org/>
+Copied from https://pastebin.com/raw/CbTsNMVF and modified to use systemctl
+and properly lock the screen before suspend.
+"""
 
 # Python3 GTK reference at https://python-gtk-3-tutorial.readthedocs.io/en/latest/
 
-import gi
-gi.require_version("Gtk", "3.0")
 import os
 import getpass
+import gi
+
+gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-class i3_exit:
+
+class Exit:
+    """ Main interface for exit popup """
     def disable_buttons(self):
         self.cancel.set_sensitive(False)
         self.logout.set_sensitive(False)
+        self.hibernate.set_sensitive(False)
         self.suspend.set_sensitive(False)
         self.reboot.set_sensitive(False)
         self.shutdown.set_sensitive(False)
@@ -35,6 +41,13 @@ class i3_exit:
         self.status.set_label("Suspending, please standby...")
         os.system("~/apps/i3lock-fancy/lock")
         os.system("systemctl suspend")
+        Gtk.main_quit()
+
+    def hibernate_action(self,btn):
+        self.disable_buttons()
+        self.status.set_label("Hibernating, please standby...")
+        os.system("~/apps/i3lock-fancy/lock")
+        os.system("systemctl hibernate")
         Gtk.main_quit()
 
     def reboot_action(self,btn):
@@ -86,6 +99,13 @@ class i3_exit:
         self.button_box.pack_start(self.suspend, True, True, 0)
         self.suspend.show()
 
+        #Hibernate button
+        self.hibernate = Gtk.Button.new_with_mnemonic("_Hibernate")
+        self.hibernate.set_border_width(4)
+        self.hibernate.connect("clicked", self.hibernate_action)
+        self.button_box.pack_start(self.hibernate, True, True, 0)
+        self.hibernate.show()
+
         #Reboot button
         self.reboot = Gtk.Button.new_with_mnemonic("_Reboot")
         self.reboot.set_border_width(4)
@@ -123,6 +143,7 @@ class i3_exit:
 def main():
     Gtk.main()
 
+
 if __name__ == "__main__":
-    go = i3_exit()
+    go = Exit()
     main()
