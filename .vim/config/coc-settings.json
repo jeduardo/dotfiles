@@ -57,5 +57,8 @@
       "initializationOptions": {}
     }
   },
-  "java.import.gradle.enabled": true
+  "java.import.gradle.enabled": true,
+  "go.toolsEnvVars": {
+    "GO111MODULE": "on"
+  },
 }
