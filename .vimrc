@@ -69,7 +69,6 @@ Plug 'saltstack/salt-vim'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'vim-ruby/vim-ruby'
-Plug 'm-kat/aws-vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
