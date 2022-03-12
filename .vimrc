@@ -80,6 +80,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'mhinz/vim-startify'
 Plug 'Shirk/vim-gas'
 Plug 'wincent/vim-clipper'
+Plug 'chrisbra/csv.vim'
 if oldversion == 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
