@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Lock the monitor on lid close only if there is nothing connected to the
+# external display port.
+
+xrandr --listmonitors | grep DP 2>&1 1>/dev/null
+if (( $? != 0 )); then
+  ~/.i3/i3lock-fancy/lock
+fi
+
