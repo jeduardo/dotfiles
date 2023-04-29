@@ -4,6 +4,7 @@ env:
 window:
   dynamic_title: true
   gtk_theme_variant: dark
+  opacity: 0.90
 
 scrolling:
   # Specifying '0' will disable scrolling.
@@ -49,7 +50,6 @@ colors:
     cyan:    '0x34e2e2'
     white:   '0xeeeeec'
 
-background_opacity: 0.90
 
 
 cursor:
