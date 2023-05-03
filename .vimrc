@@ -56,7 +56,7 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-python/python-syntax'
+"Plug 'vim-python/python-syntax'
 "Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -66,7 +66,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'bfrg/vim-cpp-modern'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+"Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-syntastic/syntastic'
 Plug 'majutsushi/tagbar'
@@ -80,6 +80,7 @@ Plug 'mhinz/vim-startify'
 Plug 'Shirk/vim-gas'
 Plug 'wincent/vim-clipper'
 Plug 'chrisbra/csv.vim'
+Plug 'neovim/nvim-lspconfig'
 if oldversion == 0
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
