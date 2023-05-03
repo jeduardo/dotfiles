@@ -168,7 +168,10 @@ bindsym $mod+r mode "resize"
 # Enable/disable external display
 #bindcode --release 133 exec ~/.i3/scripts/external-display
 #bindsym $mod+shift+p  exec ~/.i3/scripts/external-display
-bindsym $mod+p move workspace to output right
+# TODO: ~/.screenlayout/display-top.sh && i3-msg -- move workspace to output
+# DP-1-0
+# https://gist.github.com/fbrinker/df9cfbc84511d807f45041737ff3ea02
+#bindsym $mod+p move workspace to output right
 
 # Start composite manager (for effects and transparency)
 #exec "/usr/bin/xcompmgr -c -f -n"
