@@ -48,21 +48,24 @@
     }
   ],
   "java.jdt.ls.vmargs": "-Djava.import.generatesMetadataFilesAtProjectRoot=false",
-  "languageserver": {
-    "terraform": {
-      "command": "terraform-lsp",
-      "filetypes": [
-        "terraform"
-      ],
-      "initializationOptions": {}
-    }
-  },
   "java.import.gradle.enabled": true,
   "rust-analyzer.server.path": "/usr/bin/rust-analyzer",
   "languageserver": {
     "erlang": {
       "command": "erlang_ls",
-      "filetypes": ["erlang"]
+      "filetypes": [
+        "erlang"
+      ]
+    },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
     }
   }
 }

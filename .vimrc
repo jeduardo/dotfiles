@@ -340,3 +340,5 @@ augroup gas
   autocmd BufNewFile,BufRead *.S,*.as set syntax=gas
 augroup END
 
+" Autoformat files on save
+autocmd BufWritePost *.tf silent !terraform fmt <afile>
