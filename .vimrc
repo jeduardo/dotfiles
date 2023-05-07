@@ -19,14 +19,6 @@ set backspace=indent,eol,start
 " set t_kd=[B
 " set t_kr=[C
 
-" Utility variables
-let oldversion = 0
-if has('nvim')
-  let oldversion = !has('nvim-0.4.3')
-else
-  let oldversion = !has('patch-8.1.1719')
-endif
-
 "Allow correct mouse behaviour inside tmux
 if !has('nvim')
   set ttymouse=xterm2
@@ -65,6 +57,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'dracula/vim', {'as': 'dracula'}
+Plug 'altercation/vim-colors-solarized'
 Plug 'bfrg/vim-cpp-modern'
 "Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'vim-ruby/vim-ruby'
@@ -72,7 +65,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'justinmk/vim-sneak'
-"Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -81,23 +74,38 @@ Plug 'Shirk/vim-gas'
 Plug 'wincent/vim-clipper'
 Plug 'chrisbra/csv.vim'
 Plug 'neovim/nvim-lspconfig'
-if oldversion == 0
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-endif
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format', {'for' : ['c', 'cpp']}
 
 call plug#end()
 
-" Plugin configuration
+" Dracula config
 let g:dracula_colorterm = 0
 colorscheme dracula
-let g:airline_theme='dracula'
+
+" Solarized config
+let g:solarized_termcolors=256
+
+" Airline config
 let g:airline_powerline_fonts = 1
-let g:python_highlight_all = 1
+
+let themepref=trim(system('gsettings get org.gnome.desktop.interface color-scheme'))
+if themepref == "'prefer-light'" || themepref == "'default'"
+  set background=light
+  let g:airline_theme='solarized'
+  colorscheme solarized
+else
+  set background=dark
+  let g:airline_theme='dracula'
+  colorscheme dracula
+endif
+
 let g:vim_markdown_folding_disabled = 1
+
 let g:AWSVimValidate = 1
+
 let g:rustfmt_autosave = 1
+
 " Syntastic Config
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -108,19 +116,24 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_sh_shellcheck_args="--external-sources"
 let g:loaded_syntastic_java_javac_checker = 1
+
 " NERDTree configuration
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
+
 " Rainbow parenthesis config
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 autocmd FileType * RainbowParentheses
+
 " Startify config
 let g:startify_session_dir = '~/.vim/session'
+
 " Clipper config
 let g:ClipperAddress='~/.clipper.sock'
 let g:ClipperPort=0
+
 " clang format config
 let g:clang_format#auto_format=1
 
@@ -129,9 +142,7 @@ let g:clang_format#auto_format=1
 " coc-html coc-json coc-python coc-rls coc-rust-analyzer coc-sh coc-sql
 " coc-tsserver coc-vimlsp coc-xml coc-yaml
 " More extensions at https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
-if oldversion == 0
 source $HOME/.vim/config/coc.vim
-endif
 let g:coc_disable_startup_warning = 1
 
 " Some servers have issues with backup files, see #649.
