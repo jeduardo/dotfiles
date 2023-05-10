@@ -8,6 +8,29 @@ wezterm.on('gui-startup', function(cmd)
   --window:gui_window():maximize()
 end)
 
+local function get_bg_opacity()
+  if string.match(wezterm.target_triple, 'darwin') then
+    return 0.95
+  end
+  if string.match(wezterm.target_triple, 'linux') then
+    return 0.90
+  end
+  return 1
+end
+
+local function get_font()
+  local config = {}
+  if string.match(wezterm.target_triple, 'darwin') then
+    config.font_name = 'DejaVu Sans Mono for Powerline'
+    config.font_size = 12.0
+  end
+  if string.match(wezterm.target_triple, 'linux') then
+    config.font_name = 'Source Code Pro'
+    config.font_size = 7.0
+  end
+  return config
+end
+
 local function get_appearance()
   if wezterm.gui then
     return wezterm.gui.get_appearance()
@@ -15,9 +38,13 @@ local function get_appearance()
   return 'Dark'
 end
 
-local function scheme_for_appearance(apperance)
-  if apperance:find 'Dark' then
-    return 'Dracula'
+local function scheme_for_appearance(appearance)
+  if appearance:find 'Dark' then
+    if string.match(wezterm.target_triple, 'darwin') then
+      return 'Builtin Solarized Dark'
+    else
+      return 'Dracula'
+    end
   else
     return 'Builtin Solarized Light'
   end
@@ -27,15 +54,14 @@ return {
   window_close_confirmation = 'NeverPrompt',
   font = wezterm.font_with_fallback(
     {
---      'DejaVu Sans Mono', {
-      'Source Code Pro', {
+      get_font().font_name, {
         family = 'Powerline Symbols',
         weight = 'Regular',
         stretch = 'Normal',
         style = 'Normal',
       },
     }),
-  font_size = 10.0,
+  font_size = get_font().font_size,
   --cell_width = 1.0,
   --line_height = 1.0
   --freetype_render_target = 'Light',
@@ -43,7 +69,7 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   hide_mouse_cursor_when_typing = false,
 
-  window_background_opacity = 0.90,
+  window_background_opacity = get_bg_opacity(),
   --disable_default_key_bindings = true,
   keys = {
     { key = 'T', mods = 'CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
