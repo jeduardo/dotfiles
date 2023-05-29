@@ -1,4 +1,5 @@
-local wezterm = require 'wezterm'
+local wezterm = require('wezterm')
+local os = require('os')
 local act = wezterm.action
 local mux = wezterm.mux
 
@@ -26,7 +27,11 @@ local function get_font()
   end
   if string.match(wezterm.target_triple, 'linux') then
     config.font_name = 'Source Code Pro'
-    config.font_size = 7.0
+    if string.match(os.getenv('HOSTNAME'), 'surf') then
+      config.font_size = 7.0
+    else
+      config.font_size = 10.0
+    end
   end
   return config
 end
