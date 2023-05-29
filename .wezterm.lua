@@ -9,12 +9,16 @@ wezterm.on('gui-startup', function(cmd)
   --window:gui_window():maximize()
 end)
 
-local function get_bg_opacity()
+local function get_bg_opacity(appearance)
   if string.match(wezterm.target_triple, 'darwin') then
     return 0.95
   end
   if string.match(wezterm.target_triple, 'linux') then
-    return 0.90
+    if appearance:find('Dark') then
+      return 0.90
+    else 
+      return 1
+    end
   end
   return 1
 end
@@ -44,7 +48,7 @@ local function get_appearance()
 end
 
 local function scheme_for_appearance(appearance)
-  if appearance:find 'Dark' then
+  if appearance:find('Dark') then
     if string.match(wezterm.target_triple, 'darwin') then
       return 'Builtin Solarized Dark'
     else
@@ -74,7 +78,7 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   hide_mouse_cursor_when_typing = false,
 
-  window_background_opacity = get_bg_opacity(),
+  window_background_opacity = get_bg_opacity(get_appearance()),
   --disable_default_key_bindings = true,
   keys = {
     { key = 'T', mods = 'CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
