@@ -34,7 +34,7 @@ local function get_font()
     if string.match(os.getenv('HOSTNAME'), 'surf') then
       config.font_size = 7.0
     else
-      config.font_size = 10.0
+      config.font_size = 9
     end
   end
   return config
@@ -61,6 +61,7 @@ end
 
 return {
   window_close_confirmation = 'NeverPrompt',
+  harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
   font = wezterm.font_with_fallback(
     {
       get_font().font_name, {
