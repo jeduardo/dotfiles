@@ -104,8 +104,6 @@ let g:vim_markdown_folding_disabled = 1
 
 let g:AWSVimValidate = 1
 
-let g:rustfmt_autosave = 1
-
 " Syntastic Config
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -156,6 +154,12 @@ set updatetime=300
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
+
+" Configure rustfmt
+" NOTE: this needs a working rustfmt binary available in the path
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 0
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: There's always complete item selected by default, you may want to enable
