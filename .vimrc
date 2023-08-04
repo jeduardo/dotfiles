@@ -76,6 +76,7 @@ Plug 'chrisbra/csv.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format', {'for' : ['c', 'cpp']}
+Plug 'endel/vim-github-colorscheme'
 
 call plug#end()
 
@@ -92,8 +93,8 @@ let g:airline_powerline_fonts = 1
 let themepref=trim(system('gsettings get org.gnome.desktop.interface color-scheme'))
 if themepref == "'prefer-light'" || themepref == "'default'"
   set background=light
-  let g:airline_theme='solarized'
-  colorscheme solarized
+  let g:airline_theme='papercolor'
+  colorscheme github
 else
   set background=dark
   let g:airline_theme='dracula'
