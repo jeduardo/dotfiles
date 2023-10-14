@@ -61,6 +61,16 @@ end
 
 return {
   window_close_confirmation = 'NeverPrompt',
+  window_frame = {
+    border_left_width = '1',
+    border_right_width = '1',
+    border_bottom_height = '1',
+    border_top_height = '0',
+    border_left_color = 'black',
+    border_right_color = 'black',
+    border_bottom_color = 'black',
+    border_top_color = 'black',
+  },
   harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
   font = wezterm.font_with_fallback(
     {
