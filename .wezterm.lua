@@ -55,7 +55,7 @@ local function scheme_for_appearance(appearance)
       return 'Dracula'
     end
   else
-    return 'Github'
+    return 'Ashes (light) (terminal.sexy)'
   end
 end
 
