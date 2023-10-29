@@ -15,7 +15,8 @@ local function get_bg_opacity(appearance)
   end
   if string.match(wezterm.target_triple, 'linux') then
     if appearance:find('Dark') then
-      return 0.90
+      --return 0.90
+      return 0.97
     else 
       return 1
     end
@@ -52,7 +53,8 @@ local function scheme_for_appearance(appearance)
     if string.match(wezterm.target_triple, 'darwin') then
       return 'Builtin Solarized Dark'
     else
-      return 'Dracula'
+       --return 'Dracula'
+       return 'nord'
     end
   else
     return 'Ashes (light) (terminal.sexy)'
