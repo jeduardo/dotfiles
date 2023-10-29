@@ -77,12 +77,14 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format', {'for' : ['c', 'cpp']}
 Plug 'endel/vim-github-colorscheme'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
 " Dracula config
-let g:dracula_colorterm = 0
-colorscheme dracula
+" let g:dracula_colorterm = 0
+" colorscheme dracula
+colorscheme nord
 
 " Solarized config
 let g:solarized_termcolors=256
@@ -97,8 +99,10 @@ if themepref == "'prefer-light'" || themepref == "'default'"
   colorscheme github
 else
   set background=dark
-  let g:airline_theme='dracula'
-  colorscheme dracula
+  "let g:airline_theme='dracula'
+  "colorscheme dracula
+  let g:airline_theme='nord'
+  colorscheme nord
 endif
 
 let g:vim_markdown_folding_disabled = 1
