@@ -12,7 +12,7 @@ scrolling:
 
 font:
   normal:
-    family: DejaVu Sans Mono for Powerline
+    family: DejaVu Sans Mono
     style: Regular
   bold:
     style: Regular
@@ -23,33 +23,82 @@ font:
   size: 9.0
 
 # Tango color scheme
+# colors:
+#   primary:
+#     background: '0x000000'
+#     foreground: '0xc0c0c0'
+#   cursor:
+#     cursor: '0xc0c0c0'
+# 
+#   normal:
+#     black:   '0x2e3436'
+#     red:     '0xcc0000'
+#     green:   '0x4e9a06'
+#     yellow:  '0xc4a000'
+#     blue:    '0x3465a4'
+#     magenta: '0x75507b'
+#     cyan:    '0x06989a'
+#     white:   '0xd3d7cf'
+# 
+#   bright:
+#     black:   '0x555753'
+#     red:     '0xef2929'
+#     green:   '0x8ae234'
+#     yellow:  '0xfce94f'
+#     blue:    '0x729fcf'
+#     magenta: '0xad7fa8'
+#     cyan:    '0x34e2e2'
+#     white:   '0xeeeeec'
+
+# Nord theme - https://github.com/nordtheme/alacritty/blob/main/src/nord.yaml
 colors:
   primary:
-    background: '0x000000'
-    foreground: '0xc0c0c0'
+    background: "#2e3440"
+    foreground: "#d8dee9"
+    dim_foreground: "#a5abb6"
   cursor:
-    cursor: '0xc0c0c0'
-
+    text: "#2e3440"
+    cursor: "#d8dee9"
+  vi_mode_cursor:
+    text: "#2e3440"
+    cursor: "#d8dee9"
+  selection:
+    text: CellForeground
+    background: "#4c566a"
+  search:
+    matches:
+      foreground: CellBackground
+      background: "#88c0d0"
+  footer_bar:
+      background: "#434c5e"
+      foreground: "#d8dee9"
   normal:
-    black:   '0x2e3436'
-    red:     '0xcc0000'
-    green:   '0x4e9a06'
-    yellow:  '0xc4a000'
-    blue:    '0x3465a4'
-    magenta: '0x75507b'
-    cyan:    '0x06989a'
-    white:   '0xd3d7cf'
-
+    black: "#3b4252"
+    red: "#bf616a"
+    green: "#a3be8c"
+    yellow: "#ebcb8b"
+    blue: "#81a1c1"
+    magenta: "#b48ead"
+    cyan: "#88c0d0"
+    white: "#e5e9f0"
   bright:
-    black:   '0x555753'
-    red:     '0xef2929'
-    green:   '0x8ae234'
-    yellow:  '0xfce94f'
-    blue:    '0x729fcf'
-    magenta: '0xad7fa8'
-    cyan:    '0x34e2e2'
-    white:   '0xeeeeec'
-
+    black: "#4c566a"
+    red: "#bf616a"
+    green: "#a3be8c"
+    yellow: "#ebcb8b"
+    blue: "#81a1c1"
+    magenta: "#b48ead"
+    cyan: "#8fbcbb"
+    white: "#eceff4"
+  dim:
+    black: "#373e4d"
+    red: "#94545d"
+    green: "#809575"
+    yellow: "#b29e75"
+    blue: "#68809a"
+    magenta: "#8c738c"
+    cyan: "#6d96a5"
+    white: "#aeb3bb"
 
 
 cursor:
