@@ -52,6 +52,7 @@ Plug 'vim-airline/vim-airline-themes'
 "Plug 'fatih/vim-go'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-speeddating'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'rust-lang/rust.vim'
@@ -78,6 +79,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rhysd/vim-clang-format', {'for' : ['c', 'cpp']}
 Plug 'endel/vim-github-colorscheme'
 Plug 'arcticicestudio/nord-vim'
+Plug 'jceb/vim-orgmode'
 
 call plug#end()
 
