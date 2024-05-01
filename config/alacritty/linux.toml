@@ -145,3 +145,6 @@ program = "/usr/bin/zsh"
 decorations_theme_variant = "Dark"
 dynamic_title = true
 opacity = 0.9
+
+[bell]
+duration = 0
