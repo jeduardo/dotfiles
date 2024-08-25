@@ -2,6 +2,9 @@ import = [
     "~/dotfiles/config/alacritty/themes/theme.toml"
 ]
 
+[colors]
+transparent_background_colors = true
+
 [cursor]
 style = "Block"
 unfocused_hollow = true
@@ -93,7 +96,8 @@ program = "/usr/bin/zsh"
 [window]
 decorations_theme_variant = "Dark"
 dynamic_title = true
-opacity = 0.9
+opacity = 0.95
+blur = true
 
 [bell]
 duration = 0
