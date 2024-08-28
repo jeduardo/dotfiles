@@ -96,7 +96,7 @@ program = "/usr/bin/zsh"
 [window]
 decorations_theme_variant = "Dark"
 dynamic_title = true
-opacity = 0.95
+opacity = 0.97
 blur = true
 
 [bell]
