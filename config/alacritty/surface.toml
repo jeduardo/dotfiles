@@ -93,4 +93,7 @@ program = "/usr/bin/zsh"
 [window]
 decorations_theme_variant = "Dark"
 dynamic_title = true
-opacity = 0.9
+opacity = 0.96
+
+[colors]
+transparent_background_colors = true
