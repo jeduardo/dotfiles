@@ -1,144 +1,86 @@
+-- Press Control+Shift+L to see logs. Use wezterm.log_info() for outputs.
+
+-- imports
 local wezterm = require('wezterm')
-local os = require('os')
-local act = wezterm.action
-local mux = wezterm.mux
 
-wezterm.on('gui-startup', function(cmd)
-  local tab, pane, window = mux.spawn_window(cmd or {})
+-- globals
+local action = wezterm.action
+local config = wezterm.config_builder()
+local hostname = wezterm.hostname()
 
-  --window:gui_window():maximize()
-end)
-
-local function get_bg_opacity(appearance)
-  if string.match(wezterm.target_triple, 'darwin') then
-    return 0.95
-  end
-  if string.match(wezterm.target_triple, 'linux') then
-    if appearance:find('Dark') then
-      --return 0.90
-      return 0.97
-    else 
-      return 1
-    end
-  end
-  return 1
-end
-
-local function get_font()
-  local config = {}
-  if string.match(wezterm.target_triple, 'darwin') then
-    config.font_name = 'DejaVu Sans Mono for Powerline'
-    config.font_size = 12.0
-  end
-  if string.match(wezterm.target_triple, 'linux') then
-    config.font_name = 'Source Code Pro'
-    if string.match(os.getenv('HOSTNAME'), 'surf') then
-      config.font_size = 7.0
-    else
-      config.font_size = 9
-    end
-  end
-  return config
-end
-
-local function get_appearance()
+-- utility functions
+function is_dark()
+  -- wezterm.gui is not always available, depending on what
+  -- environment wezterm is operating in. Just return true
+  -- if it's not defined.
   if wezterm.gui then
-    return wezterm.gui.get_appearance()
+    -- Some systems report appearance like "Dark High Contrast"
+    -- so let's just look for the string "Dark" and if we find
+    -- it assume appearance is dark.
+    return wezterm.gui.get_appearance():find("Dark")
   end
-  return 'Dark'
+  return true
 end
 
-local function scheme_for_appearance(appearance)
-  if appearance:find('Dark') then
-    if string.match(wezterm.target_triple, 'darwin') then
-      return 'Builtin Solarized Dark'
-    else
-       --return 'Dracula'
-       return 'nord'
-    end
-  else
-    return 'Ashes (light) (terminal.sexy)'
+function get_color_scheme()
+  if is_dark() then
+    return 'nord'
   end
+  return 'Ashes (light) (terminal.sexy)'
 end
 
-return {
+function merge_tables(defaults, overrides)
+  for k,v in pairs(overrides) do defaults[k] = v end
+  return defaults
+end
+
+-- config defaults
+local defaults = {
   window_close_confirmation = 'NeverPrompt',
+  window_background_opacity = 0.95,
+  color_scheme = get_color_scheme(),
+  font = wezterm.font('Source Code Pro'),
+  font_size = 7.5,
+  window_decorations = 'RESIZE',
   window_frame = {
-    border_left_width = '1',
-    border_right_width = '1',
-    border_bottom_height = '1',
-    border_top_height = '0',
-    border_left_color = 'black',
-    border_right_color = 'black',
-    border_bottom_color = 'black',
-    border_top_color = 'black',
+    font = wezterm.font({ family = 'DejaVu Sans', weight = 'Bold' }),
+    font_size = 9,
   },
-  window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0,
-  },
-  harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
-  font = wezterm.font_with_fallback(
-    {
-      get_font().font_name, {
-        family = 'Powerline Symbols',
-        weight = 'Regular',
-        stretch = 'Normal',
-        style = 'Normal',
-      },
-    }),
-  font_size = get_font().font_size,
-  --cell_width = 1.0,
-  --line_height = 1.0
-  --freetype_render_target = 'Light',
-
-  hide_tab_bar_if_only_one_tab = true,
   hide_mouse_cursor_when_typing = false,
-
-  window_background_opacity = get_bg_opacity(get_appearance()),
-  --disable_default_key_bindings = true,
+  hide_tab_bar_if_only_one_tab = true,
   keys = {
-    { key = 'T', mods = 'CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
-    { key = 'T', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
-    { key = 't', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
-    { key = 't', mods = 'SUPER', action = act.SpawnTab 'CurrentPaneDomain' },
+    { key = 'T', mods = 'CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
+    { key = 'T', mods = 'SHIFT|CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
+    { key = 't', mods = 'SHIFT|CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
+    { key = 't', mods = 'SUPER', action = action.SpawnTab 'CurrentPaneDomain' },
   },
-
-  color_scheme = scheme_for_appearance(get_appearance())
-
-  --color_scheme = 'Tangoesque (terminal.sexy)',
-  --color_scheme = 'Solarized Dark (base16)',
-  --color_scheme = 'WildCherry',
-  --color_scheme = 'Terminix Dark (Gogh)',
-  --color_scheme = 'theme2 (terminal.sexy)',
-  --color_scheme = 'Solarized Dark - Patched',
-  --color_scheme = 'Solarized Dark Higher Contrast',
-  --color_scheme = 'Synth Midnight Terminal Dark (base16)',
-  --color_scheme = 'Papercolor Dark (Gogh)',
-  --colors = {
-  --  cursor_bg = '#c0c0c0',
-  --  foreground = '#c0c0c0',
-  --  ansi = {
-  --    '#2e3436', --black
-  --    '#cc0000', -- red
-  --    '#4e9a06', -- green
-  --    '#c4a000', -- yellow
-  --    '#3465a4', -- blue
-  --    '#75507b', -- magenta
-  --    '#06989a', -- cyan
-  --    '#d3d7cf', -- white
-  --  },
-  --  brights = {
-  --    '#555753', -- black
-  --    '#ef2929', -- red
-  --    '#8ae234', -- green
-  --    '#fce94f', -- yellow
-  --    '#729fcf', -- blue
-  --    '#ad7fa8', -- magenta
-  --    '#34e2e2', -- cyan
-  --    '#eeeeec', -- white
-  --  },
-  --},
 }
+
+-- platform overrides
+local platform = {
+  ["x86_64-pc-windows-msvc"] = {},
+  ["x86_64-apple-darwin"] = {},
+  ["aarch64-apple-darwin"] = {
+    font = wezterm.font('DejaVu Sans Mono for Powerline'),
+    font_size = 12.0
+  },
+  ["x86_64-unknown-linux-gnu"] = {
+    window_background_opacity = 0.97,
+  },
+}
+
+-- hostname overrides
+local hostname = {
+  surface = {
+    font_size = 10
+  }
+}
+
+wezterm.log_info(wezterm.hostname)
+
+-- merging config
+local merged = merge_tables(defaults, platform[wezterm.target_triple])
+merged = merge_tables(merged, hostname[wezterm.hostname()] or {})
+config = merge_tables(config, merged)
+
+return config
