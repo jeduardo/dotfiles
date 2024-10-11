@@ -39,7 +39,7 @@ shell:
     - --login
 
 import:
-  - ~/dotfiles/config/alacritty/themes/solarized_dark.yaml
+  - ~/src/github.com/jeduardo/dotfiles/config/alacritty/themes/theme.toml
 
 hints:
   url:
