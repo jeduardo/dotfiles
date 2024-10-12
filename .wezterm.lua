@@ -74,7 +74,10 @@ local platform = {
 local hostname = {
   surface = {
     font_size = 7.5
-  }
+  },
+  discordia = {
+    hide_tab_bar_if_only_one_tab = true,
+  },
 }
 
 -- display overrides
