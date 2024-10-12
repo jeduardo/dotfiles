@@ -26,16 +26,14 @@ end
 -- globals
 local action = wezterm.action
 local config = wezterm.config_builder()
-local hostname = wezterm.hostname()
-local dark = is_dark()
 
 -- config defaults
 local defaults = {
   window_close_confirmation = 'NeverPrompt',
   window_background_opacity = 0.95,
   color_scheme = is_dark() and 'nord' or 'Ashes (light) (terminal.sexy)',
-  font = wezterm.font('Source Code Pro'),
-  font_size = 7.5,
+  font = wezterm.font('DejaVu Sans Mono'),
+  font_size = 9,
   harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
   window_decorations = 'RESIZE|INTEGRATED_BUTTONS',
   window_frame = {
@@ -75,7 +73,7 @@ local platform = {
 -- hostname overrides
 local hostname = {
   surface = {
-    font_size = 10
+    font_size = 7.5
   }
 }
 
