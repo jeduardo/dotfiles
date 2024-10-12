@@ -27,11 +27,15 @@ end
 local action = wezterm.action
 local config = wezterm.config_builder()
 
+
 -- config defaults
+local default_dark_theme = 'nord'
+local default_light_theme = 'Atelier Cave Light (base16)'
+-- Other choices: 'Alabaster', '3024 Day', 'Ashes (light) (terminal.sexy)'
 local defaults = {
   window_close_confirmation = 'NeverPrompt',
   window_background_opacity = 0.95,
-  color_scheme = is_dark() and 'nord' or 'Ashes (light) (terminal.sexy)',
+  color_scheme = is_dark() and default_dark_theme or default_light_theme,
   font = wezterm.font('DejaVu Sans Mono'),
   font_size = 9,
   harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
