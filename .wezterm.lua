@@ -28,22 +28,43 @@ local action = wezterm.action
 local config = wezterm.config_builder()
 
 -- reusable key shortcuts
-local tmux_new_window = action.Multiple({
+local tmux_window_new = action.Multiple({
   action.SendKey { key = 'a', mods = 'CTRL'},
   action.SendKey { key = 'c' },
 })
-local tmux_next_window = action.Multiple({
+local tmux_window_next = action.Multiple({
   action.SendKey { key = 'a', mods = 'CTRL'},
   action.SendKey { key = 'n' },
 })
-local tmux_prev_window = action.Multiple({
+local tmux_window_prev = action.Multiple({
   action.SendKey { key = 'a', mods = 'CTRL'},
   action.SendKey { key = 'p' },
 })
-local tmux_kill_window = action.Multiple({
+local tmux_window_kill = action.Multiple({
   action.SendKey { key = 'a', mods = 'CTRL'},
   action.SendKey { key = '&' },
 })
+local tmux_pane_new_up = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '-' },
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '{' },
+})
+local tmux_pane_new_down = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '-' },
+})
+local tmux_pane_new_right = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '|' },
+})
+local tmux_pane_new_left = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '|' },
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '{' },
+})
+
 
 -- config defaults
 local default_dark_theme = 'nord'
@@ -74,10 +95,17 @@ local defaults = {
 
 
   keys = {
-    { key = 't', mods = 'CTRL|SHIFT', action = tmux_new_window },
-    { key = 'n', mods = 'CTRL|SHIFT', action = tmux_next_window },
-    { key = 'p', mods = 'CTRL|SHIFT', action = tmux_prev_window },
-    { key = 'w', mods = 'CTRL|SHIFT', action = tmux_kill_window },
+    -- tmux
+    { key = 't', mods = 'CTRL|SHIFT', action = tmux_window_new },
+    { key = 'n', mods = 'CTRL|SHIFT', action = tmux_window_next },
+    { key = 'p', mods = 'CTRL|SHIFT', action = tmux_window_prev },
+    { key = 'w', mods = 'CTRL|SHIFT', action = tmux_window_kill },
+    { key = 'UpArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_up },
+    { key = 'DownArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_down },
+    { key = 'LeftArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_left },
+    { key = 'RightArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_right },
+    -- wezterm
+    { key = 'n', mods = 'CTRL|ALT', action = action.SpawnWindow },
   },
 }
 
