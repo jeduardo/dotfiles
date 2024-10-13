@@ -64,7 +64,10 @@ local tmux_pane_new_left = action.Multiple({
   action.SendKey { key = 'a', mods = 'CTRL'},
   action.SendKey { key = '{' },
 })
-
+local tmux_pane_kill = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = 'x' },
+})
 
 -- config defaults
 local default_dark_theme = 'nord'
@@ -104,6 +107,8 @@ local defaults = {
     { key = 'DownArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_down },
     { key = 'LeftArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_left },
     { key = 'RightArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_right },
+
+    { key = 'w', mods = 'CTRL|SHIFT|ALT', action = tmux_pane_kill },
     -- wezterm
     { key = 'n', mods = 'CTRL|ALT', action = action.SpawnWindow },
   },
