@@ -52,6 +52,8 @@ local defaults = {
     top = 0,
     bottom = 0,
   },
+  initial_cols = math.floor(80 * 1.5),
+  initial_rows = math.floor(24 * 1.5),
   keys = {
     { key = 'T', mods = 'CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
     { key = 'T', mods = 'SHIFT|CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
