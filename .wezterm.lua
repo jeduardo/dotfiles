@@ -27,6 +27,23 @@ end
 local action = wezterm.action
 local config = wezterm.config_builder()
 
+-- reusable key shortcuts
+local tmux_new_window = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = 'c' },
+})
+local tmux_next_window = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = 'n' },
+})
+local tmux_prev_window = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = 'p' },
+})
+local tmux_kill_window = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '&' },
+})
 
 -- config defaults
 local default_dark_theme = 'nord'
@@ -54,11 +71,13 @@ local defaults = {
   },
   initial_cols = math.floor(80 * 1.5),
   initial_rows = math.floor(24 * 1.5),
+
+
   keys = {
-    { key = 'T', mods = 'CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
-    { key = 'T', mods = 'SHIFT|CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
-    { key = 't', mods = 'SHIFT|CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
-    { key = 't', mods = 'SUPER', action = action.SpawnTab 'CurrentPaneDomain' },
+    { key = 't', mods = 'CTRL|SHIFT', action = tmux_new_window },
+    { key = 'n', mods = 'CTRL|SHIFT', action = tmux_next_window },
+    { key = 'p', mods = 'CTRL|SHIFT', action = tmux_prev_window },
+    { key = 'w', mods = 'CTRL|SHIFT', action = tmux_kill_window },
   },
 }
 
@@ -79,7 +98,7 @@ local platform = {
 -- hostname overrides
 local hostname = {
   surface = {
-    font_size = 7.5
+   font_size = 7.5
   },
   discordia = {
     hide_tab_bar_if_only_one_tab = true,
