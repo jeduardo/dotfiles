@@ -1,0 +1,48 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+# shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+brew install tmux \
+	neovim \
+	jq \
+	yq \
+	pass \
+	htop \
+	tmux
+
+# all powerline fonts
+brew search powerline | grep font | xargs brew install
+
+# software
+brew install visual-studio-code \
+	cursor \
+	brave-browser \
+	wezterm \
+	joplin \
+	steam \
+	spotify \
+	zoom \
+	monitorcontrol
+
+brew install --cask syncthing
+
+# browserpass setup
+brew install pinentry-mac
+brew tap amar1729/formulae
+brew install browserpass
+PREFIX='/opt/homebrew/opt/browserpass' make hosts-brave-user -f '/opt/homebrew/opt/browserpass/lib/browserpass/Makefile'
+PREFIX='/opt/homebrew/opt/browserpass' make hosts-firefox-user -f '/opt/homebrew/opt/browserpass/lib/browserpass/Makefile'
+
+# hardware
+brew install elgato-wave-link \
+	yubico-yubikey-manager
+
+# tmux setup
+mkdir -p ~/.tmux/plugins
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+{{ end -}}
