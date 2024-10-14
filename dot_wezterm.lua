@@ -26,35 +26,91 @@ end
 -- globals
 local action = wezterm.action
 local config = wezterm.config_builder()
-local hostname = wezterm.hostname()
-local dark = is_dark()
+
+-- reusable key shortcuts
+local tmux_window_new = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = 'c' },
+})
+local tmux_window_next = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = 'n' },
+})
+local tmux_window_prev = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = 'p' },
+})
+local tmux_window_kill = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '&' },
+})
+local tmux_pane_new_up = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '-' },
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '{' },
+})
+local tmux_pane_new_down = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '-' },
+})
+local tmux_pane_new_right = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '|' },
+})
+local tmux_pane_new_left = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '|' },
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = '{' },
+})
+local tmux_pane_kill = action.Multiple({
+  action.SendKey { key = 'a', mods = 'CTRL'},
+  action.SendKey { key = 'x' },
+})
 
 -- config defaults
+local default_dark_theme = 'nord'
+local default_light_theme = 'Atelier Cave Light (base16)'
+-- Other choices: 'Alabaster', '3024 Day', 'Ashes (light) (terminal.sexy)'
 local defaults = {
   window_close_confirmation = 'NeverPrompt',
   window_background_opacity = 0.95,
-  color_scheme = is_dark() and 'nord' or 'Ashes (light) (terminal.sexy)',
-  font = wezterm.font('Source Code Pro'),
-  font_size = 7.5,
+  color_scheme = is_dark() and default_dark_theme or default_light_theme,
+  font = wezterm.font('DejaVu Sans Mono'),
+  font_size = 9,
   harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
-  window_decorations = 'RESIZE|INTEGRATED_BUTTONS',
+  window_decorations = 'TITLE | RESIZE',
   window_frame = {
     font = wezterm.font({ family = 'DejaVu Sans', weight = 'Bold' }),
     font_size = 12,
   },
   hide_mouse_cursor_when_typing = false,
-  hide_tab_bar_if_only_one_tab = false,
+  hide_tab_bar_if_only_one_tab = true,
   window_padding = {
     left = 0,
     right = 0,
     top = 0,
     bottom = 0,
   },
+  initial_cols = math.floor(80 * 1.5),
+  initial_rows = math.floor(24 * 1.5),
+
+
   keys = {
-    { key = 'T', mods = 'CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
-    { key = 'T', mods = 'SHIFT|CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
-    { key = 't', mods = 'SHIFT|CTRL', action = action.SpawnTab 'CurrentPaneDomain' },
-    { key = 't', mods = 'SUPER', action = action.SpawnTab 'CurrentPaneDomain' },
+    -- tmux
+    { key = 't', mods = 'CTRL|SHIFT', action = tmux_window_new },
+    { key = 'n', mods = 'CTRL|SHIFT', action = tmux_window_next },
+    { key = 'p', mods = 'CTRL|SHIFT', action = tmux_window_prev },
+    { key = 'w', mods = 'CTRL|SHIFT', action = tmux_window_kill },
+    { key = 'UpArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_up },
+    { key = 'DownArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_down },
+    { key = 'LeftArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_left },
+    { key = 'RightArrow', mods = 'CTRL|SHIFT', action = tmux_pane_new_right },
+
+    { key = 'w', mods = 'CTRL|SHIFT|ALT', action = tmux_pane_kill },
+    -- wezterm
+    { key = 'n', mods = 'CTRL|ALT', action = action.SpawnWindow },
   },
 }
 
@@ -75,8 +131,8 @@ local platform = {
 -- hostname overrides
 local hostname = {
   surface = {
-    font_size = 10
-  }
+   font_size = 7.5
+  },
 }
 
 -- display overrides
