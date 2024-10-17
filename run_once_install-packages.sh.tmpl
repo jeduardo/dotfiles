@@ -7,31 +7,32 @@
 # shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 brew install tmux \
-	neovim \
-	jq \
-	yq \
-	pass \
-	htop \
-	tmux \
-	direnv \
+  neovim \
+  jq \
+  yq \
+  pass \
+  htop \
+  tmux \
+  direnv \
   nvim \
   lazygit \
   ripgrep \
   fd \
-  npm
+  npm \
+  pwgen
 
 # all powerline fonts
 brew search powerline | grep font | xargs brew install
 
 # software
 brew install visual-studio-code \
-	cursor \
-	brave-browser \
-	wezterm \
-	joplin \
-	spotify \
-	zoom \
-	monitorcontrol
+  cursor \
+  brave-browser \
+  wezterm \
+  joplin \
+  spotify \
+  zoom \
+  monitorcontrol
 # TODO: I'd like to install steam, but the cask version is x86_64-only
 
 brew install --cask syncthing
@@ -45,7 +46,7 @@ PREFIX='/opt/homebrew/opt/browserpass' make hosts-firefox-user -f '/opt/homebrew
 
 # hardware
 brew install elgato-wave-link \
-	yubico-yubikey-manager
+  yubico-yubikey-manager
 
 # tmux setup
 mkdir -p ~/.tmux/plugins
@@ -57,7 +58,7 @@ mkdir ~/.aws/
 #!/bin/bash
 
 # Create the AWS helper script using cat and heredoc
-cat <<EOF > ~/.aws/aws-pass-helper.sh
+cat <<EOF >~/.aws/aws-pass-helper.sh
 #!/bin/bash
 
 # Path where the credentials are stored in pass
@@ -87,9 +88,8 @@ JSON
 EOF
 chmod +x ~/.aws/aws-pass-helper.sh
 
-
-# Home will be pre-processed here as the current home 
-cat <<EOF > ~/.aws/config
+# Home will be pre-processed here as the current home
+cat <<EOF >~/.aws/config
 [profile blorgh/jeduardo]
 region = eu-central-1
 credential_process = $HOME/.aws/aws-pass-helper.sh
