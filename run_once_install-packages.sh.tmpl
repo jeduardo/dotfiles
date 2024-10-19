@@ -13,40 +13,39 @@ function read_array_from_command() {
   while IFS= read -r line; do
     array+=("$line")
   done < <(eval "$cmd")
-  echo "${array[@]}"  # Return the array as a space-separated string
+  echo "${array[@]}" # Return the array as a space-separated string
 }
 
 function contains_string() {
   local search_string="$1"
-  shift  # Shift past the first argument (the search string)
-  local array=("$@")  # The rest of the arguments are the array elements
+  shift              # Shift past the first argument (the search string)
+  local array=("$@") # The rest of the arguments are the array elements
 
   for element in "${array[@]}"; do
     if [[ "$element" == "$search_string" ]]; then
-      return 0  # String found, return success
+      return 0 # String found, return success
     fi
   done
-  return 1  # String not found, return failure
+  return 1 # String not found, return failure
 }
 
 # Define taps to be added
-# tap for browserpass
+# This is the cask for browserpass
 taps="amar1729/formulae"
 
 # Define software to be installed
-cli="direnv fd htop jq lazygit neovim nvim pass pinentry-mac pwgen ripgrep tmux wezterm yq"
-dev="npm visual-studio-code"
+cli="direnv fd htop jq lazygit most neovim pass pinentry-mac pwgen ripgrep tmux wezterm yq"
+# node will provide npm with it
+dev="node visual-studio-code"
 fonts=($(read_array_from_command "brew search powerline | grep font | sort"))
 sys="google-drive monitorcontrol"
 misc="brave-browser browserpass cursor joplin spotify zoom yubico-yubikey-manager"
-# NOTE: syncthing from casks will add an icon and handle autostart
 casks="syncthing"
-# TODO: I'd like to install steam, but the cask version is x86_64-only
+# NOTE: I wanted to have steam as a cask but the cask is x86_64 only.
 
-# Install brew if absent
-which brew 2>&1 1>/dev/null
-if (( $? != 0 )); then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Install Homebrew if absent
+if ! command -v brew &>/dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # Collect installed packages
@@ -57,59 +56,53 @@ configured_taps=($(read_array_from_command "brew tap"))
 # Configure app taps
 for tap in $taps; do
   if ! contains_string "$tap" "${configured_taps[@]}"; then
-    brew install $pkg
+    brew tap $tap
   fi
+done
 
-# Install all homebrew software
+# Install all Homebrew software
 all="$cli $dev $fonts $sys $misc"
 for pkg in $all; do
-if ! contains_string "$pkg" "${installed[@]}"; then
-  brew install $pkg
-fi
+  if ! contains_string "$pkg" "${installed[@]}"; then
+    brew install $pkg
+  fi
+done
 
-# Install all homebrew casks
-all="$casks"
-for pkg in $all; do
-if ! contains_string "$pkg" "${installed[@]}"; then
-  brew install --cask $pkg
-fi
+# Install all Homebrew casks
+for pkg in $casks; do
+  if ! contains_string "$pkg" "${installed[@]}"; then
+    brew install --cask $pkg
+  fi
+done
 
-# browserpass setup, it should be fine to run this every time.
+# browserpass setup
 PREFIX='/opt/homebrew/opt/browserpass' make hosts-brave-user -f '/opt/homebrew/opt/browserpass/lib/browserpass/Makefile'
 PREFIX='/opt/homebrew/opt/browserpass' make hosts-firefox-user -f '/opt/homebrew/opt/browserpass/lib/browserpass/Makefile'
 
 # tmux setup
 TMUX_PLUGIN_DIR="$HOME/.tmux/plugins"
 if [[ ! -d "$TMUX_PLUGIN_DIR" ]]; then
-  mkdir -p $TMUX_PLUGIN_DIR
-  git clone https://github.com/tmux-plugins/tpm $TMUX_PLUGIN_DIR/tpm
+  mkdir -p "$TMUX_PLUGIN_DIR"
+  git clone https://github.com/tmux-plugins/tpm "$TMUX_PLUGIN_DIR/tpm"
 fi
 
 # aws cli setup
 AWS_DIR="$HOME/.aws"
 if [[ ! -d "$AWS_DIR" ]]; then
-  mkdir -p $AWS_DIR
-  # Create the AWS helper script using cat and heredoc
-  cat <<EOF > $AWS_DIR/aws-pass-helper.sh
+  mkdir -p "$AWS_DIR"
+  # Create the AWS helper script
+  cat <<EOF >"$AWS_DIR/aws-pass-helper.sh"
 #!/bin/bash
-
-# Path where the credentials are stored in pass
 BASE_PATH=hosting/aws.amazon.com
-
-# Define the profile from the environment
 AWS_PROFILE=\${AWS_PROFILE:-default}
-
-# Fetch credentials from pass
 ACCESS_KEY_ID=\$(pass \$BASE_PATH/\$AWS_PROFILE/access_key_id)
 SECRET_ACCESS_KEY=\$(pass \$BASE_PATH/\$AWS_PROFILE/secret_access_key)
 
-# Check that we have the required keys
 if [[ -z "\$ACCESS_KEY_ID" || -z "\$SECRET_ACCESS_KEY" ]]; then
   echo "Error: Missing AWS credentials for profile \$AWS_PROFILE" >&2
   exit 1
 fi
 
-# Output the credentials in JSON format required by awscli
 cat <<JSON
 {
   "Version": 1,
@@ -118,21 +111,18 @@ cat <<JSON
 }
 JSON
 EOF
-  # Ensure the credential helper is executable
-  chmod +x $AWS_DIR/aws-pass-helper.sh
+  chmod +x "$AWS_DIR/aws-pass-helper.sh"
 
-  # AWS_DIR will be pre-processed here and saved as the full path that is required
-  cat <<EOF > $AWS_DIR/config
+  # Configure AWS profiles
+  cat <<EOF >"$AWS_DIR/config"
 [profile blorgh/jeduardo]
 region = eu-central-1
 credential_process = $AWS_DIR/aws-pass-helper.sh
 EOF
-
 fi
 
 # rustup install
-which cargo 2>&1 1>/dev/null
-if (( $? != 0 )); then
+if ! command -v cargo &>/dev/null; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
 
