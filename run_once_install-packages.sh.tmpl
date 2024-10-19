@@ -1,65 +1,96 @@
-{{ if eq .chezmoi.os "linux" -}}
-#!/bin/sh
-
-{{ else if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
-# shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-brew install tmux \
-  neovim \
-  jq \
-  yq \
-  pass \
-  htop \
-  tmux \
-  direnv \
-  nvim \
-  lazygit \
-  ripgrep \
-  fd \
-  npm \
-  pwgen
+set -u # Fail on undefined variable
 
-# all powerline fonts
-brew search powerline | grep font | xargs brew install
+{{ if eq .chezmoi.os "linux" -}}
 
-# software
-brew install visual-studio-code \
-  cursor \
-  brave-browser \
-  wezterm \
-  joplin \
-  spotify \
-  zoom \
-  monitorcontrol \
-  google-drive
+{{ else if eq .chezmoi.os "darwin" -}}
+
+# Function to read multiline command output into an array
+function read_array_from_command() {
+  local cmd="$1"
+  local array=()
+  while IFS= read -r line; do
+    array+=("$line")
+  done < <(eval "$cmd")
+  echo "${array[@]}"  # Return the array as a space-separated string
+}
+
+function contains_string() {
+  local search_string="$1"
+  shift  # Shift past the first argument (the search string)
+  local array=("$@")  # The rest of the arguments are the array elements
+
+  for element in "${array[@]}"; do
+    if [[ "$element" == "$search_string" ]]; then
+      return 0  # String found, return success
+    fi
+  done
+  return 1  # String not found, return failure
+}
+
+# Define taps to be added
+# tap for browserpass
+taps="amar1729/formulae"
+
+# Define software to be installed
+cli="direnv fd htop jq lazygit neovim nvim pass pinentry-mac pwgen ripgrep tmux wezterm yq"
+dev="npm visual-studio-code"
+fonts=($(read_array_from_command "brew search powerline | grep font | sort"))
+sys="google-drive monitorcontrol"
+misc="brave-browser browserpass cursor joplin spotify zoom yubico-yubikey-manager"
+# NOTE: syncthing from casks will add an icon and handle autostart
+casks="syncthing"
 # TODO: I'd like to install steam, but the cask version is x86_64-only
 
-brew install --cask syncthing
+# Install brew if absent
+which brew 2>&1 1>/dev/null
+if (( $? != 0 )); then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
-# browserpass setup
-brew install pinentry-mac
-brew tap amar1729/formulae
-brew install browserpass
+# Collect installed packages
+installed=($(read_array_from_command "brew list"))
+# Collect configured taps
+configured_taps=($(read_array_from_command "brew tap"))
+
+# Configure app taps
+for tap in $taps; do
+  if ! contains_string "$tap" "${configured_taps[@]}"; then
+    brew install $pkg
+  fi
+
+# Install all homebrew software
+all="$cli $dev $fonts $sys $misc"
+for pkg in $all; do
+if ! contains_string "$pkg" "${installed[@]}"; then
+  brew install $pkg
+fi
+
+# Install all homebrew casks
+all="$casks"
+for pkg in $all; do
+if ! contains_string "$pkg" "${installed[@]}"; then
+  brew install --cask $pkg
+fi
+
+# browserpass setup, it should be fine to run this every time.
 PREFIX='/opt/homebrew/opt/browserpass' make hosts-brave-user -f '/opt/homebrew/opt/browserpass/lib/browserpass/Makefile'
 PREFIX='/opt/homebrew/opt/browserpass' make hosts-firefox-user -f '/opt/homebrew/opt/browserpass/lib/browserpass/Makefile'
 
-# hardware
-brew install elgato-wave-link \
-  yubico-yubikey-manager
-
 # tmux setup
-mkdir -p ~/.tmux/plugins
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+TMUX_PLUGIN_DIR="$HOME/.tmux/plugins"
+if [[ ! -d "$TMUX_PLUGIN_DIR" ]]; then
+  mkdir -p $TMUX_PLUGIN_DIR
+  git clone https://github.com/tmux-plugins/tpm $TMUX_PLUGIN_DIR/tpm
+fi
 
 # aws cli setup
-mkdir ~/.aws/
-
-#!/bin/bash
-
-# Create the AWS helper script using cat and heredoc
-cat <<EOF >~/.aws/aws-pass-helper.sh
+AWS_DIR="$HOME/.aws"
+if [[ ! -d "$AWS_DIR" ]]; then
+  mkdir -p $AWS_DIR
+  # Create the AWS helper script using cat and heredoc
+  cat <<EOF > $AWS_DIR/aws-pass-helper.sh
 #!/bin/bash
 
 # Path where the credentials are stored in pass
@@ -87,15 +118,22 @@ cat <<JSON
 }
 JSON
 EOF
-chmod +x ~/.aws/aws-pass-helper.sh
+  # Ensure the credential helper is executable
+  chmod +x $AWS_DIR/aws-pass-helper.sh
 
-# Home will be pre-processed here as the current home
-cat <<EOF >~/.aws/config
+  # AWS_DIR will be pre-processed here and saved as the full path that is required
+  cat <<EOF > $AWS_DIR/config
 [profile blorgh/jeduardo]
 region = eu-central-1
-credential_process = $HOME/.aws/aws-pass-helper.sh
+credential_process = $AWS_DIR/aws-pass-helper.sh
 EOF
 
+fi
+
 # rustup install
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+which cargo 2>&1 1>/dev/null
+if (( $? != 0 )); then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
 {{ end -}}
