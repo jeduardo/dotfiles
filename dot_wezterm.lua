@@ -133,6 +133,8 @@ local platform = {
 local hostname = {
 	surface = {
 		font_size = 7.5,
+		hide_tab_bar_if_only_one_tab = false,
+		window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 	},
 }
 
