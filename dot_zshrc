@@ -105,4 +105,5 @@ export EDITOR=nvim
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim=nvim
 
+export PAGER=most
 export PATH=$HOME/.cargo/bin:$PATH
