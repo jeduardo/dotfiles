@@ -2,3 +2,13 @@
 type = "git-repo"
 url = "git@github.com:jeduardo/nvim.git"
 refreshPeriod = "1h"
+
+[".tmux/plugins/tpm"]
+type = "git-repo"
+url = "https://github.com/tmux-plugins/tpm"
+refreshPeriod = "24h"
+
+[".oh-my-zsh"]
+type = "git-repo"
+url = "https://github.com/ohmyzsh/ohmyzsh.git"
+refreshPeriod = "24h"
