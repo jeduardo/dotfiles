@@ -160,9 +160,6 @@ install_chezmoi() {
 check_dependencies
 install_chezmoi
 
-# Download configuration
-mkdir -p ~/.local/share/
-git clone -b main https://github.com/jeduardo/dotfiles.git ~/.local/share/chezmoi/
-
-# Apply configuration
+# Init and apply
+chezmoi init --branch main https://github.com/jeduardo/dotfiles.git
 chezmoi apply -v
