@@ -22,6 +22,8 @@ detect_linux_distro() {
   if [[ -f /etc/os-release ]]; then
     source /etc/os-release
     echo "$ID"
+  elif [[ -d "/data/data/com.termux/files/usr" ]] || [[ -n "$TERMUX_VERSION" ]]; then
+    echo "android"
   else
     echo "unknown"
   fi
