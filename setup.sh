@@ -14,7 +14,7 @@ install_on_macos() {
 # Function to install chezmoi on Android using pkg
 install_on_android() {
   echo "Installing chezmoi on Android using pkg..."
-  pkg install chezmoi
+  pkg install git chezmoi
 }
 
 # Function to detect Linux distribution
