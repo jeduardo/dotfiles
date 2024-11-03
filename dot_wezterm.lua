@@ -125,6 +125,7 @@ local platform = {
 		macos_window_background_blur = 10,
 	},
 	["x86_64-unknown-linux-gnu"] = {
+		enable_wayland = false,
 		window_background_opacity = 0.97,
 	},
 }
