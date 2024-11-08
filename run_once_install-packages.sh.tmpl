@@ -35,7 +35,7 @@ function install_android_packages() {
 
   for pkg in $PACKAGES; do
     if ! contains_string "$pkg" "${INSTALLED[@]}"; then
-      pkg install $pkg
+      pkg install -y $pkg
     fi
   done
 
