@@ -29,7 +29,7 @@ function detect_linux_distro() {
 }
 
 function install_android_packages() {
-  PACKAGES="git clang htop make openssl-tool neovim tmux"
+  PACKAGES="git clang gettext htop make openssl-tool neovim tmux"
 
   INSTALLED=($(read_array_from_command "pkg list-installed | grep -v automatic | sed 's|/.*||'"))
 
