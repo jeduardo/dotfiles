@@ -133,7 +133,7 @@ local platform = {
 -- hostname overrides
 local hostname = {
 	surface = {
-		font_size = 7.5,
+		font_size = 7,
 	},
 }
 
