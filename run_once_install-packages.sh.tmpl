@@ -1,4 +1,4 @@
-#!{{ .bash }}
+#!{{ default "/bin/bash" (index . "bash") }}
 
 set -u # Fail on undefined variable
 
