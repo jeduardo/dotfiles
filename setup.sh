@@ -14,7 +14,7 @@ install_on_macos() {
 # Function to install chezmoi on Android using pkg
 install_on_android() {
   echo "Installing chezmoi on Android using pkg..."
-  pkg install git chezmoi
+  pkg install chezmoi git which
 }
 
 # Function to detect Linux distribution
@@ -156,8 +156,17 @@ install_chezmoi() {
   esac
 }
 
+add_shell_location() {
+  mkdir -p $HOME/.config/chezmoi/ || true
+  cat <<EOF >$HOME/.config/chezmoi/chezmoi.toml
+[data]
+  bash = "$(which bash)"
+EOF
+}
+
 # Install chezmoi on system
 check_dependencies
+add_shell_location
 install_chezmoi
 
 # Init and apply
