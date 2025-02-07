@@ -4,6 +4,19 @@ set -u # Fail on undefined variable
 
 # Common functions
 
+function contains_string() {
+  local search_string="$1"
+  shift              # Shift past the first argument (the search string)
+  local array=("$@") # The rest of the arguments are the array elements
+
+  for element in "${array[@]}"; do
+    if [[ "$element" == "$search_string" ]]; then
+      return 0 # String found, return success
+    fi
+  done
+  return 1 # String not found, return failure
+}
+
 # Function to read multiline command output into an array
 function read_array_from_command() {
   local cmd="$1"
@@ -73,19 +86,6 @@ android)
 esac
 
 {{ else if eq .chezmoi.os "darwin" -}}
-
-function contains_string() {
-  local search_string="$1"
-  shift              # Shift past the first argument (the search string)
-  local array=("$@") # The rest of the arguments are the array elements
-
-  for element in "${array[@]}"; do
-    if [[ "$element" == "$search_string" ]]; then
-      return 0 # String found, return success
-    fi
-  done
-  return 1 # String not found, return failure
-}
 
 # Define taps to be added
 # This is the cask for browserpass
