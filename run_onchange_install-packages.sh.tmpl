@@ -41,6 +41,19 @@ function install_android_packages() {
 
 }
 
+function install_fedora_packages() {
+  PACKAGES="btop dejavu-fonts-all htop git neovim"
+
+  INSTALLED=($(read_array_from_command "rpm -qa --qf '%{NAME}\n' | sort"))
+
+  for pkg in $PACKAGES; do
+    if ! contains_string "$pkg" "${INSTALLED[@]}"; then
+      sudo dnf install -y $pkg
+    fi
+  done
+
+}
+
 # Install packages
 distro=$(detect_linux_distro)
 case "$distro" in
@@ -48,7 +61,7 @@ debian | ubuntu)
   echo TODO
   ;;
 fedora)
-  echo TODO
+  install_fedora_packages
   ;;
 android)
   install_android_packages
