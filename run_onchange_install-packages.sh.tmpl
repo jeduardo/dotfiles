@@ -42,7 +42,7 @@ function detect_linux_distro() {
 }
 
 function install_android_packages() {
-  PACKAGES="git clang gettext htop make most openssl-tool neovim tmux"
+  PACKAGES="cadave git clang gettext htop make most openssl-tool neovim tmux"
 
   INSTALLED=($(read_array_from_command "pkg list-installed | grep -v automatic | sed 's|/.*||'"))
 
@@ -55,7 +55,7 @@ function install_android_packages() {
 }
 
 function install_fedora_packages() {
-  PACKAGES="btop dejavu-fonts-all git htop python3-virtualenvwrapper neovim"
+  PACKAGES="btop cadaver dejavu-fonts-all git htop python3-virtualenvwrapper neovim"
 
   INSTALLED=($(read_array_from_command "rpm -qa --qf '%{NAME}\n' | sort"))
 
@@ -92,7 +92,7 @@ esac
 taps="amar1729/formulae"
 
 # Define software to be installed
-cli="direnv fd ffmpeg fzf htop huggingface-cli imagemagick iproute2mac k9s kubectl jq lazygit llm most nano neovim pass pinentry-mac pwgen ripgrep tmux virtualenvwrapper wezterm xdotool yq"
+cli="cadaver direnv fd ffmpeg fzf htop huggingface-cli imagemagick iproute2mac k9s kubectl jq lazygit llm most nano neovim pass pinentry-mac pwgen ripgrep tmux virtualenvwrapper wezterm xdotool yq"
 # node will provide npm with it
 dev="boost cmake corretto drawio libevent node python@3.11 visual-studio-code"
 fonts=($(read_array_from_command "brew search powerline | grep font | sort"))
