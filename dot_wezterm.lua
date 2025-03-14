@@ -126,7 +126,7 @@ local platform = {
 	},
 	["x86_64-unknown-linux-gnu"] = {
 		enable_wayland = false,
-		window_background_opacity = 0.97,
+		window_background_opacity = 0.95,
 	},
 }
 
