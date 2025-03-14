@@ -55,7 +55,7 @@ function install_android_packages() {
 }
 
 function install_fedora_packages() {
-  PACKAGES="btop cadaver dejavu-fonts-all git htop python3-virtualenvwrapper neovim"
+  PACKAGES="btop cadaver dejavu-fonts-all git gnome-shell-extension-light-style htop python3-virtualenvwrapper neovim"
 
   INSTALLED=($(read_array_from_command "rpm -qa --qf '%{NAME}\n' | sort"))
 
