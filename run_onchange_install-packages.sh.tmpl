@@ -55,7 +55,7 @@ function install_android_packages() {
 }
 
 function install_fedora_packages() {
-  PACKAGES="btop cadaver dejavu-fonts-all git gnome-shell-extension-light-style htop python3-virtualenvwrapper neovim most"
+  PACKAGES="btop cadaver dejavu-fonts-all fastfetch git gnome-shell-extension-light-style htop python3-virtualenvwrapper neovim most"
 
   INSTALLED=($(read_array_from_command "rpm -qa --qf '%{NAME}\n' | sort"))
 
@@ -92,9 +92,9 @@ esac
 taps="amar1729/formulae"
 
 # Define software to be installed
-cli="cadaver cloudflare-wrangler direnv fd ffmpeg fzf htop httpie huggingface-cli imagemagick iproute2mac k9s kubectl jq lazygit lima llm most nano neovim pass pinentry-mac pnpm pwgen ripgrep tmux vercel-cli virtualenvwrapper wezterm xdotool yq uv"
+cli="cadaver cloudflare-wrangler direnv fastfetch fd ffmpeg fzf htop httpie huggingface-cli imagemagick iproute2mac k9s kubectl jq lazygit lima llm most nano neovim pass pinentry-mac pnpm pwgen ripgrep tmux vercel-cli virtualenvwrapper wezterm xdotool yq uv"
 # node will provide npm with it
-dev="boost cmake corretto drawio libevent node python@3.11 visual-studio-code"
+dev="boost cmake corretto drawio kind libevent node python@3.11 visual-studio-code"
 fonts=($(read_array_from_command "brew search powerline | grep font | sort"))
 sys="google-drive monitorcontrol"
 misc="brave-browser browserpass calibre firefox joplin stats spotify zoom yubico-yubikey-manager"
