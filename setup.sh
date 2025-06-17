@@ -99,7 +99,7 @@ install_on_fedora() {
   else
     echo "chezmoi is not in the dnf repository, downloading and installing from chezmoi website..."
     # Fetch the latest chezmoi .rpm file URL for the detected architecture
-    rpm_url=$(curl -s https://api.github.com/repos/twpayne/chezmoi/releases/latest | grep -oP "(?<=browser_download_url\": \")[^\"]*linux_${arch}\.rpm")
+    rpm_url=$(curl -s https://api.github.com/repos/twpayne/chezmoi/releases/latest | grep -oP "(?<=browser_download_url\": \")[^\"]*${arch}\.rpm")
 
     if [[ -n "$rpm_url" ]]; then
       curl -Lo chezmoi.rpm "$rpm_url"
