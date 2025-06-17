@@ -55,7 +55,8 @@ function install_android_packages() {
 }
 
 function install_fedora_packages() {
-  PACKAGES="btop cadaver dejavu-fonts-all fastfetch lftp git gnome-shell-extension-light-style htop python3-virtualenvwrapper neovim most"
+  # TODO: find a way to split packages that should be installed only in fedora workstation
+  PACKAGES="btop direnv cadaver dejavu-fonts-all fastfetch lftp git gnome-shell-extension-light-style htop python3-virtualenvwrapper neovim most"
 
   INSTALLED=($(read_array_from_command "rpm -qa --qf '%{NAME}\n' | sort"))
 
