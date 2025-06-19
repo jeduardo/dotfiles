@@ -1,0 +1,3 @@
+# Ignoring convenience files from the repo
+README.md
+setup.sh
