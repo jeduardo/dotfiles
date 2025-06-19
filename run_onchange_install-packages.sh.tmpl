@@ -55,8 +55,12 @@ function install_android_packages() {
 }
 
 function install_fedora_packages() {
-  # TODO: find a way to split packages that should be installed only in fedora workstation
-  PACKAGES="btop direnv cadaver dejavu-fonts-all fastfetch lftp git gnome-shell-extension-light-style htop python3-virtualenvwrapper neovim most"
+  WORKSTATION=$(grep -qi 'workstation' /etc/os-release && echo "true" || echo "false")
+
+  # Common packages to both server and workstation
+  PACKAGES="btop direnv cadaver fastfetch git htop lftp most neovim python3-virtualenvwrapper"
+  # Packages specifically for workstation
+  WORKSTATION_PACKAGES="dejavu-fonts-all gnome-shell-extension-light-style"
 
   INSTALLED=($(read_array_from_command "rpm -qa --qf '%{NAME}\n' | sort"))
 
@@ -65,6 +69,14 @@ function install_fedora_packages() {
       sudo dnf install -y $pkg
     fi
   done
+
+  if [ "$WORKSTATION" = "true"]; then
+    for pkg in $WORKSTATION_PACKAGES; do
+      if ! contains_string "$pkg" "${INSTALLED[@]}"; then
+        sudo dnf install -y $pkg
+      fi
+    done
+  fi
 
 }
 
