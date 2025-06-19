@@ -58,7 +58,7 @@ function install_fedora_packages() {
   WORKSTATION=$(grep -qi 'workstation' /etc/os-release && echo "true" || echo "false")
 
   # Common packages to both server and workstation
-  PACKAGES="btop direnv cadaver fastfetch git htop lftp most nodejs pnpm neovim python3-virtualenvwrapper"
+  PACKAGES="btop direnv cadaver fastfetch git htop lftp most nodejs pnpm neovim python3-virtualenvwrapper uv"
   # Packages specifically for workstation
   WORKSTATION_PACKAGES="dejavu-fonts-all foliate gnome-shell-extension-light-style"
 
