@@ -60,7 +60,7 @@ function install_fedora_packages() {
   # Common packages to both server and workstation
   PACKAGES="btop direnv cadaver fastfetch git htop lftp most neovim python3-virtualenvwrapper"
   # Packages specifically for workstation
-  WORKSTATION_PACKAGES="dejavu-fonts-all gnome-shell-extension-light-style"
+  WORKSTATION_PACKAGES="dejavu-fonts-all foliate gnome-shell-extension-light-style"
 
   INSTALLED=($(read_array_from_command "rpm -qa --qf '%{NAME}\n' | sort"))
 
