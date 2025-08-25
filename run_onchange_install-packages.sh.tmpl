@@ -84,24 +84,14 @@ function install_debian_packages() {
   WORKSTATION=$(dpkg -l | grep gdm && echo "true" || echo "false")
 
   # Common packages to both server and workstation
-  PACKAGES="btop direnv cadaver fastfetch git htop lftp most neovim python3-virtualenvwrapper uv"
+  PACKAGES="btop direnv cadaver fastfetch git htop lftp most nodejs neovim python3-virtualenvwrapper"
   # Packages specifically for workstation
   WORKSTATION_PACKAGES=""
 
-  INSTALLED=($(read_array_from_command "rpm -qa --qf '%{NAME}\n' | sort"))
-
-  for pkg in $PACKAGES; do
-    if ! contains_string "$pkg" "${INSTALLED[@]}"; then
-      sudo dnf install -y $pkg
-    fi
-  done
+  sudo apt-get install -y $PACKAGES
 
   if [ "$WORKSTATION" = "true"]; then
-    for pkg in $WORKSTATION_PACKAGES; do
-      if ! contains_string "$pkg" "${INSTALLED[@]}"; then
-        sudo dnf install -y $pkg
-      fi
-    done
+    sudo apt-get install -y $WORKSTATION_PACKAGES
   fi
 
 }
