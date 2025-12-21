@@ -9,10 +9,10 @@ set -euo pipefail
 
 # dnf packages
 sudo dnf -y install \
-{{- range .packages.fedora.common }}
+{{- range .packages.linux.fedora.common }}
   {{ . | quote }} \
 {{- end }}
-{{- with (index .packages.fedora $variant) }}
+{{- with (index .packages.linux.fedora $variant) }}
 {{- range . }}
   {{ . | quote }} \
 {{- end }}
