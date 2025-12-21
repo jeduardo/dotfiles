@@ -149,3 +149,22 @@ packages:
       - nodejs
       - neovim
       - python3-virtualenvwrapper
+    fedora:
+      common:
+        - btop
+        - direnv
+        - cadaver
+        - fastfetch
+        - git
+        - htop
+        - lftp
+        - most
+        - nodejs
+        - pnpm
+        - neovim
+        - python3-virtualenvwrapper
+        - uv
+      workstation:
+        - dejavu-fonts-all
+        - foliate
+        - gnome-shell-extension-light-style

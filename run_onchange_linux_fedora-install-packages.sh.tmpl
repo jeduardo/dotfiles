@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+{{ if eq .chezmoi.os "linux" }}
+set -euo pipefail
+
+{{- $id := lower .chezmoi.osRelease.id -}}
+{{- $variant := lower (or .chezmoi.osRelease.variant "") -}}
+
+{{- if eq $id "fedora" -}}
+
+# dnf packages
+sudo dnf -y install \
+{{- range .packages.fedora.common }}
+  {{ . | quote }} \
+{{- end }}
+{{- with (index .packages.fedora $variant) }}
+{{- range . }}
+  {{ . | quote }} \
+{{- end }}
+{{- end }}
+;
+
+{{- end -}}
+{{- end -}}
+

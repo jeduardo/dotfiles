@@ -54,38 +54,9 @@ function install_android_packages() {
 
 }
 
-function install_fedora_packages() {
-  WORKSTATION=$(grep -qi 'workstation' /etc/os-release && echo "true" || echo "false")
-
-  # Common packages to both server and workstation
-  PACKAGES="btop direnv cadaver fastfetch git htop lftp most nodejs pnpm neovim python3-virtualenvwrapper uv"
-  # Packages specifically for workstation
-  WORKSTATION_PACKAGES="dejavu-fonts-all foliate gnome-shell-extension-light-style"
-
-  INSTALLED=($(read_array_from_command "rpm -qa --qf '%{NAME}\n' | sort"))
-
-  for pkg in $PACKAGES; do
-    if ! contains_string "$pkg" "${INSTALLED[@]}"; then
-      sudo dnf install -y $pkg
-    fi
-  done
-
-  if [ "$WORKSTATION" = "true"]; then
-    for pkg in $WORKSTATION_PACKAGES; do
-      if ! contains_string "$pkg" "${INSTALLED[@]}"; then
-        sudo dnf install -y $pkg
-      fi
-    done
-  fi
-
-}
-
 # Install packages
 distro=$(detect_linux_distro)
 case "$distro" in
-fedora)
-  install_fedora_packages
-  ;;
 android)
   install_android_packages
   ;;
