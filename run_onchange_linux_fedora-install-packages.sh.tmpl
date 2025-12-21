@@ -2,9 +2,10 @@
 #!/usr/bin/env bash
 
 {{- $id := lower .chezmoi.osRelease.id -}}
-{{- $variant := lower (or .chezmoi.osRelease.variant "") -}}
 
 {{- if eq $id "fedora" -}}
+
+{{- $variant := lower (or .chezmoi.osRelease.variant "") -}}
 
 set -euo pipefail
 # dnf packages
