@@ -1,11 +1,8 @@
-{{ if eq .chezmoi.os "linux" }}
-#!/usr/bin/env bash
-
+{{- if eq .chezmoi.os "linux" -}}
 {{- $id := lower .chezmoi.osRelease.id -}}
-
 {{- if eq $id "fedora" -}}
-
 {{- $variant := lower (or .chezmoi.osRelease.variant "") -}}
+#!/usr/bin/env bash
 
 set -euo pipefail
 # dnf packages
