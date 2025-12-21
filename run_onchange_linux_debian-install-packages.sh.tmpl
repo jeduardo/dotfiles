@@ -1,7 +1,7 @@
+#!/usr/bin/env bash
 {{ if eq .chezmoi.os "linux" -}}
 {{ $id := lower .chezmoi.osRelease.id }}
 {{ if eq $id "debian" }}
-#!/usr/bin/env bash
 
 # apt packages
 set -euo pipefail
