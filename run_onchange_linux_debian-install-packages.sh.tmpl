@@ -1,0 +1,15 @@
+{{ if eq .chezmoi.os "linux" -}}
+{{ $id := lower .chezmoi.osRelease.id }}
+{{ if eq $id "debian" }}
+#!/usr/bin/env bash
+
+# apt packages
+set -euo pipefail
+sudo apt-get update -y
+sudo apt-get install -y \
+{{- range .packages.linux.debian }}
+  {{ . | quote }} \
+{{- end }}
+;
+{{ end -}}
+{{ end -}}

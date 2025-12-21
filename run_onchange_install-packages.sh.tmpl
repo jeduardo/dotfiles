@@ -80,28 +80,9 @@ function install_fedora_packages() {
 
 }
 
-function install_debian_packages() {
-  WORKSTATION=$(dpkg -l | grep gdm && echo "true" || echo "false")
-
-  # Common packages to both server and workstation
-  PACKAGES="btop direnv cadaver fastfetch git htop lftp most nodejs neovim python3-virtualenvwrapper"
-  # Packages specifically for workstation
-  WORKSTATION_PACKAGES=""
-
-  sudo apt-get install -y $PACKAGES
-
-  if [ "$WORKSTATION" = "true"]; then
-    sudo apt-get install -y $WORKSTATION_PACKAGES
-  fi
-
-}
-
 # Install packages
 distro=$(detect_linux_distro)
 case "$distro" in
-debian | ubuntu)
-  install_debian_packages
-  ;;
 fedora)
   install_fedora_packages
   ;;

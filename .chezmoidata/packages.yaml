@@ -136,3 +136,16 @@ packages:
       - wezterm
       - xquartz
       - zoom
+  linux:
+    debian:
+      - btop
+      - direnv
+      - cadaver
+      - fastfetch
+      - git
+      - htop
+      - lftp
+      - most
+      - nodejs
+      - neovim
+      - python3-virtualenvwrapper
