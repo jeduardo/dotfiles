@@ -73,7 +73,7 @@ ZSH_THEME=agnoster
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(aws direnv fzf git pass rust virtualenvwrapper)
+plugins=(aws direnv fluxcd fzf git helm k9s kind kubectl kubectx macos pass python rust ssh terraform tmux uv vscode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,6 +107,14 @@ export EDITOR=nvim
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim=nvim
+
+compdef kubecolor=kubectl
+alias k=kubecolor
+alias kaf"=k apply -f"
+
+function bat {
+  /opt/homebrew/bin/bat --theme="$(bat_theme)" --paging=never --style=plain "$@"
+}
 
 export PAGER=most
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$PATH
