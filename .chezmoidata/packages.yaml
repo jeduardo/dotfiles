@@ -155,7 +155,7 @@ packages:
     - rust
     - rust-analyzer
     - neovim
-      -tmux
+    - tmux
     - uv
   linux:
     debian:
