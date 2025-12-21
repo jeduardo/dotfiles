@@ -115,53 +115,6 @@ android)
 esac
 
 {{ else if eq .chezmoi.os "darwin" -}}
-
-# Define taps to be added
-# This is the cask for browserpass
-taps="amar1729/formulae"
-
-# Define software to be installed
-cli="ansible aria2 cadaver cobra-cli cloudflare-wrangler codex direnv fastfetch fd ffmpeg fzf glow lftp htop httpie huggingface-cli imagemagick ipcalc iproute2mac k9s kubectl jq lazygit lima llm most nano neovim oci-cli oxipng pass pinentry-mac pngquant npm pwgen ripgrep tmux vercel-cli virtualenvwrapper wezterm xdotool yq uv"
-# node will provide npm with it
-dev="boost cmake corretto drawio gh kind libevent node visual-studio-code"
-fonts=($(read_array_from_command "brew search powerline | grep font | sort"))
-sys="google-drive monitorcontrol rectangle"
-misc="brave-browser browserpass calibre firefox joplin stats spotify zoom yubico-yubikey-manager"
-casks="container localsend gimp iina music-decoy nightfall orbstack paintbrush pgadmin4 syncthing vlc xquartz"
-# NOTE: I wanted to have steam as a cask but the cask is x86_64 only.
-
-# Install Homebrew if absent
-if ! command -v brew &>/dev/null; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
-# Collect installed packages
-installed=($(read_array_from_command "brew list"))
-# Collect configured taps
-configured_taps=($(read_array_from_command "brew tap"))
-
-# Configure app taps
-for tap in $taps; do
-  if ! contains_string "$tap" "${configured_taps[@]}"; then
-    brew tap $tap
-  fi
-done
-
-# Install all Homebrew software
-all="$cli $dev $fonts $sys $misc"
-for pkg in $all; do
-  if ! contains_string "$pkg" "${installed[@]}"; then
-    brew install $pkg
-  fi
-done
-
-# Install all Homebrew casks
-for pkg in $casks; do
-  if ! contains_string "$pkg" "${installed[@]}"; then
-    brew install --cask $pkg
-  fi
-done
-
 # browserpass setup
 PREFIX='/opt/homebrew/opt/browserpass' make hosts-brave-user -f '/opt/homebrew/opt/browserpass/lib/browserpass/Makefile'
 PREFIX='/opt/homebrew/opt/browserpass' make hosts-firefox-user -f '/opt/homebrew/opt/browserpass/lib/browserpass/Makefile'
