@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # pkg
-pkg -y install \
+pkg install -y \
 {{- range .packages.android }}
   {{ . | quote }} \
 {{- end }}
