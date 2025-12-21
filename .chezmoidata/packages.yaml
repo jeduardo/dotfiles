@@ -136,6 +136,27 @@ packages:
       - wezterm
       - xquartz
       - zoom
+  android:
+    - cadaver
+    - clang
+    - direnv
+    - fastfetch
+    - fzf
+    - git
+    - golang
+    - gopls
+    - gettext
+    - htop
+    - make
+    - most
+    - nodejs
+    - openssl-tool
+    - python-pip
+    - rust
+    - rust-analyzer
+    - neovim
+      -tmux
+    - uv
   linux:
     debian:
       - btop

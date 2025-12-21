@@ -1,0 +1,16 @@
+#!{{ default "/bin/bash" (index . "bash") }}
+
+# Android needs a different bootup script
+{{ if eq .chezmoi.os "android" }}
+
+set -euo pipefail
+
+# pkg
+pkg -y install \
+{{- range .packages.android }}
+  {{ . | quote }} \
+{{- end }}
+;
+
+{{- end -}}
+
