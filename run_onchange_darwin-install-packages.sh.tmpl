@@ -1,5 +1,5 @@
-{{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
+{{ if eq .chezmoi.os "darwin" -}}
 
 # Homebrew packages
 brew bundle --file=/dev/stdin <<EOF
