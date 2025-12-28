@@ -1,5 +1,5 @@
-{{ if eq .chezmoi.os "android" }}
 #!{{ default "/bin/bash" (index . "bash") }}
+{{ if eq .chezmoi.os "android" }}
 # Android needs a different bootup script
 set -euo pipefail
 
