@@ -159,10 +159,12 @@ packages:
     - uv
   linux:
     debian:
+      - bat
       - btop
       - direnv
       - cadaver
       - fastfetch
+      - fzf
       - git
       - htop
       - lftp
@@ -170,6 +172,7 @@ packages:
       - nodejs
       - neovim
       - python3-virtualenvwrapper
+      - tmux
     fedora:
       common:
         - btop
