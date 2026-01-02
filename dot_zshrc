@@ -108,9 +108,11 @@ export EDITOR=nvim
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim=nvim
 
-compdef kubecolor=kubectl
-alias k=kubecolor
-alias kaf"=k apply -f"
+if command -v git >/dev/null 2>&1; then
+  compdef kubecolor=kubectl
+  alias k=kubecolor
+  alias kaf"=k apply -f"
+fi
 
 function bat {
   /opt/homebrew/bin/bat --theme="$(bat_theme)" --paging=never --style=plain "$@"
