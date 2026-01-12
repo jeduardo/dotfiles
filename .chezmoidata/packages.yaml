@@ -19,7 +19,6 @@ packages:
       - cmake
       - cobra-cli
       - commitlint
-      - corepack
       - crane
       - d2
       - direnv
