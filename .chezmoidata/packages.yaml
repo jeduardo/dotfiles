@@ -115,6 +115,7 @@ packages:
       - font-source-code-pro-for-powerline
       - font-ubuntu-mono-derivative-powerline
       - gimp
+      - goland
       - google-drive
       - iina
       - joplin
