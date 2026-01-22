@@ -89,7 +89,6 @@ packages:
       - codex
       - calibre
       - container
-      - corretto
       - desktoppr
       - drawio
       - firefox
@@ -131,6 +130,7 @@ packages:
       - spotify
       - stats
       - syncthing-app
+      - temurin
       - utm
       - visual-studio-code
       - vlc
