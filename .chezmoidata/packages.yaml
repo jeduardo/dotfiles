@@ -21,6 +21,7 @@ packages:
       - commitlint
       - crane
       - d2
+      - delve
       - direnv
       - dive
       - dockutil
