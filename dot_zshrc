@@ -118,5 +118,12 @@ function bat {
   /opt/homebrew/bin/bat --theme="$(bat_theme)" --paging=never --style=plain "$@"
 }
 
+# Allow copying streamed data using OSC52
+copy() {
+  local data
+  data=$(base64 | tr -d '\r\n')
+  printf '\e]52;c;%s\a' "$data"
+}
+
 export PAGER=most
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$PATH
