@@ -1,7 +1,10 @@
 {{- if eq .chezmoi.os "linux" -}}
 {{- $id := lower .chezmoi.osRelease.id -}}
 {{- if eq $id "fedora" -}}
-{{- $variant := lower (or .chezmoi.osRelease.variant "") -}}
+{{- $variant := lower (default "" (get .chezmoi.osRelease "variant_id")) -}}
+{{- if eq $variant "" -}}
+{{- $variant = lower (default "" (get .chezmoi.osRelease "variant")) -}}
+{{- end -}}
 #!/usr/bin/env bash
 
 set -euo pipefail
@@ -19,4 +22,3 @@ sudo dnf -y install \
 
 {{- end -}}
 {{- end -}}
-
