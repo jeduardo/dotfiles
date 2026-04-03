@@ -12,3 +12,21 @@ refreshPeriod = "24h"
 type = "git-repo"
 url = "https://github.com/ohmyzsh/ohmyzsh.git"
 refreshPeriod = "24h"
+
+{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") }}
+{{- $releaseOS := .chezmoi.os }}
+{{- if eq .chezmoi.os "darwin" }}
+{{- $releaseOS = "macos" }}
+{{- end }}
+{{- $releaseArch := .chezmoi.arch }}
+{{- if eq .chezmoi.arch "amd64" }}
+{{- $releaseArch = "x86_64" }}
+{{- end }}
+
+[".local/bin/lpass"]
+type = "archive-file"
+url = "https://github.com/jeduardo/lastpass-rs/releases/latest/download/lpass-{{ $releaseOS }}-{{ $releaseArch }}.tar.gz"
+path = "lpass-{{ $releaseOS }}-{{ $releaseArch }}"
+executable = true
+refreshPeriod = "24h"
+{{- end }}
