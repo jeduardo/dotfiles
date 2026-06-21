@@ -78,6 +78,9 @@ plugins=(aws direnv fluxcd fzf git helm k9s kind kubectl kubectx macos pass pyth
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+prompt_context() {
+  prompt_segment 240 255 "%(!.%{%F{yellow}%}.)%n@%m"
+}
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -115,7 +118,59 @@ if command -v git >/dev/null 2>&1; then
 fi
 
 function bat {
-  /opt/homebrew/bin/bat --theme="$(bat_theme)" --paging=never --style=plain "$@"
+  command bat --color=always --theme=ansi --paging=never --style=plain "$@"
+}
+
+alias cat='bat --color=always --theme=ansi --paging=never --style=plain'
+
+function is_dark_mode {
+  case "$(uname -s)" in
+    Darwin)
+      [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]
+      ;;
+    Linux)
+      if ! command -v gsettings >/dev/null 2>&1; then
+        return 1
+      fi
+
+      local color_scheme gtk_theme
+      color_scheme="$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)"
+      gtk_theme="$(gsettings get org.gnome.desktop.interface gtk-theme 2>/dev/null)"
+      [[ "$color_scheme" == *prefer-dark* || "$gtk_theme" == *-dark* || "$gtk_theme" == *-Dark* ]]
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+function k9s_skin {
+  if is_dark_mode; then
+    echo nord
+  else
+    echo nord-light
+  fi
+}
+
+function kubecolor_theme {
+  if is_dark_mode; then
+    echo dark
+  else
+    echo light
+  fi
+}
+
+export K9S_SKIN="$(k9s_skin)"
+export KUBECOLOR_PRESET="$(kubecolor_theme)"
+
+function kubecolor {
+  export KUBECOLOR_PRESET="$(kubecolor_theme)"
+  command kubecolor --kubecolor-theme="$KUBECOLOR_PRESET" "$@"
+}
+
+function k9s {
+  export K9S_SKIN="$(k9s_skin)"
+  command k9s "$@"
 }
 
 # Allow copying streamed data using OSC52
@@ -125,5 +180,6 @@ copy() {
   printf '\e]52;c;%s\a' "$data"
 }
 
-export PAGER=most
+export PAGER=less
+export LESS=-R
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$PATH

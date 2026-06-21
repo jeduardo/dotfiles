@@ -1,0 +1,69 @@
+# ~/.config/ghostty/config
+
+#theme = dark:nord,light:Ef-Deuteranopia-Light
+theme = dark:Nord,light:Nord Light
+#theme = dark:Rose Pine,light:Rose Pine Dawn
+#theme = dark:Gruvbox Material Dark,light:Gruvbox Material Light
+#theme = dark:Flexoki Dark,light:Flexoki Light
+# ~/.config/ghostty/config
+
+confirm-close-surface = false
+
+# Match WezTerm more closely.
+# Your current 0.88 is much more transparent, and makes text look softer.
+#background-opacity = 0.95
+background-opacity = 1
+
+# true = Ghostty's default blur intensity 20.
+# WezTerm is using blur 10, so use 10 here.
+background-blur = 10
+
+cursor-style = block
+shell-integration-features = no-cursor
+
+theme = dark:Nord,light:Nord Light
+
+# Clear previous font-family values, then set the exact WezTerm font.
+font-family = ""
+font-family = "DejaVu Sans Mono for Powerline"
+
+# Your WezTerm effective size is probably 13 on the Retina "More Space" mode.
+font-size = 13
+
+# Equivalent to your WezTerm harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
+font-feature = -calt,-clig,-liga
+
+# Leave off first. Enable only if Ghostty still looks thinner than WezTerm.
+font-thicken = false
+
+mouse-hide-while-typing = false
+
+window-padding-x = 0
+window-padding-y = 0
+
+window-width = 120
+window-height = 36
+
+# tmux via send-text (\x01 is Ctrl+A)
+# new tab
+keybind = ctrl+shift+t=text:\x01c
+# next tab
+keybind = ctrl+shift+n=text:\x01n
+# previous tab
+keybind = ctrl+shift+p=text:\x01p
+# tab browser
+keybind = ctrl+shift+w=text:\x01&
+
+# open tab on top
+keybind = ctrl+shift+up=text:\x01-\x01{
+# open tab under
+keybind = ctrl+shift+down=text:\x01-
+# open tab to the right
+keybind = ctrl+shift+right=text:\x01|
+# open tab to the left
+keybind = ctrl+shift+left=text:\x01|\x01{
+# exit
+keybind = ctrl+shift+alt+w=text:\x01x
+
+# new window
+keybind = ctrl+alt+n=new_window

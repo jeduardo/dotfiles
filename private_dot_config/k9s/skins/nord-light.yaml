@@ -1,0 +1,115 @@
+# ~/.config/k9s/skins/nord-light-readable.yaml
+
+k9s:
+  body:
+    fgColor: "#2E3440"
+    bgColor: default
+    logoColor: "#5E81AC"
+
+  prompt:
+    fgColor: "#2E3440"
+    bgColor: default
+    suggestColor: "#5E81AC"
+
+  info:
+    fgColor: "#3B4252"
+    sectionColor: "#5E81AC"
+
+  help:
+    fgColor: "#4C566A"
+    bgColor: default
+    sectionColor: "#2E5F8F"
+    keyColor: "#2E5F8F"
+    numKeyColor: "#8A6500"
+
+  dialog:
+    fgColor: "#2E3440"
+    bgColor: "#E5E9F0"
+    buttonFgColor: "#ECEFF4"
+    buttonBgColor: "#4C566A"
+    buttonFocusFgColor: "#2E3440"
+    buttonFocusBgColor: "#EBCB8B"
+    labelFgColor: "#2E5F8F"
+    fieldFgColor: "#2E3440"
+
+  frame:
+    border:
+      fgColor: "#81A1C1"
+      focusColor: "#5E81AC"
+
+    menu:
+      fgColor: "#6D7688"
+      keyColor: "#2E5F8F"
+      numKeyColor: "#8A6500"
+
+    crumbs:
+      fgColor: "#ECEFF4"
+      bgColor: "#4C566A"
+      activeColor: "#EBCB8B"
+
+    status:
+      newColor: "#4F7A43"
+      modifyColor: "#8A6500"
+      addColor: "#2E5F8F"
+      pendingColor: "#8A6500"
+      errorColor: "#BF616A"
+      highlightColor: "#5E81AC"
+      killColor: "#BF616A"
+      completedColor: "#6D7688"
+
+    title:
+      fgColor: "#2E3440"
+      bgColor: default
+      highlightColor: "#2E5F8F"
+      counterColor: "#87517A"
+      filterColor: "#2E7182"
+
+  views:
+    table:
+      fgColor: "#2E3440"
+      bgColor: default
+
+      # Current row. Blue-grey, not green.
+      cursorFgColor: "#ECEFF4"
+      cursorBgColor: "#5E81AC"
+
+      markColor: "#8A6500"
+
+      header:
+        fgColor: "#2E5F8F"
+        bgColor: default
+        sorterColor: "#8A6500"
+        selectedSortColumnColor: "#87517A"
+
+    xray:
+      fgColor: "#2E3440"
+      bgColor: default
+      cursorColor: "#D8DEE9"
+      graphicColor: "#5E81AC"
+      showIcons: true
+
+    yaml:
+      keyColor: "#2E5F8F"
+      colonColor: "#6D7688"
+      valueColor: "#2E3440"
+
+    logs:
+      fgColor: "#2E3440"
+      bgColor: default
+
+      indicator:
+        fgColor: "#2E7182"
+        bgColor: default
+        toggleOnColor: "#4F7A43"
+        toggleOffColor: "#6D7688"
+
+    charts:
+      bgColor: default
+      dialBgColor: default
+      chartBgColor: default
+      defaultDialColors:
+        - "#5E81AC"
+        - "#BF616A"
+      defaultChartColors:
+        - "#5E81AC"
+        - "#8A6500"
