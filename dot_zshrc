@@ -11,7 +11,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME=agnoster
+# ZSH_THEME=agnoster
+ZSH_THEME=robbyrussell
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -78,9 +79,10 @@ plugins=(aws direnv fluxcd fzf git helm k9s kind kubectl kubectx macos pass pyth
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-prompt_context() {
-  prompt_segment 240 255 "%(!.%{%F{yellow}%}.)%n@%m"
-}
+# Agnoster-specific context override:
+# prompt_context() {
+#   prompt_segment 240 255 "%(!.%{%F{yellow}%}.)%n@%m"
+# }
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -117,11 +119,11 @@ if command -v git >/dev/null 2>&1; then
   alias kaf"=k apply -f"
 fi
 
-function bat {
-  command bat --color=always --theme=ansi --paging=never --style=plain "$@"
-}
-
-alias cat='bat --color=always --theme=ansi --paging=never --style=plain'
+# function bat {
+#   command bat --color=always --theme=ansi --paging=never --style=plain "$@"
+# }
+#
+# alias cat='bat --color=always --theme=ansi --paging=never --style=plain'
 
 function is_dark_mode {
   case "$(uname -s)" in
@@ -144,11 +146,27 @@ function is_dark_mode {
   esac
 }
 
+function bat_theme {
+  if is_dark_mode; then
+    echo tokyonight_storm
+  else
+    echo tokyonight_day
+  fi
+}
+
+function bat {
+  command bat --color=always --theme="$(bat_theme)" --paging=never --style=plain "$@"
+}
+
+alias cat=bat
+
 function k9s_skin {
   if is_dark_mode; then
-    echo nord
+    # echo nord
+    echo tokyonight-storm
   else
-    echo nord-light
+    # echo nord-light
+    echo tokyonight-day
   fi
 }
 
@@ -180,6 +198,7 @@ copy() {
   printf '\e]52;c;%s\a' "$data"
 }
 
-export PAGER=less
-export LESS=-R
+# export PAGER=less
+# export LESS=-R
+export PAGER=most
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$PATH

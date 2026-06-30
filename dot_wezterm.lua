@@ -72,8 +72,10 @@ local tmux_pane_kill = action.Multiple({
 })
 
 -- config defaults
-local default_dark_theme = "nord"
-local default_light_theme = "Ef-Deuteranopia-Light"
+-- local default_dark_theme = "nord"
+-- local default_light_theme = "Ef-Deuteranopia-Light"
+local default_dark_theme = "Tokyo Night Storm"
+local default_light_theme = "Tokyo Night Day"
 -- Other choices: 'Alabaster', '3024 Day', 'Ashes (light) (terminal.sexy)', 'AtomOneLight', 'ayu_light', 'Bluloco Light (Gogh)', 'Bluloco Zsh Light (Gogh)', 'Catppuccin Latte', 'Classic Light (base16)', 'Ef-Deuteranopia-Light'
 local defaults = {
 	window_close_confirmation = "NeverPrompt",

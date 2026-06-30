@@ -1,0 +1,115 @@
+# Tokyo Night Day palette: https://github.com/folke/tokyonight.nvim
+
+k9s:
+  body:
+    fgColor: "#3760BF"
+    bgColor: default
+    logoColor: "#9854F1"
+
+  prompt:
+    fgColor: "#3760BF"
+    bgColor: default
+    suggestColor: "#2E7DE9"
+
+  info:
+    fgColor: "#6172B0"
+    sectionColor: "#2E7DE9"
+
+  help:
+    fgColor: "#6172B0"
+    bgColor: default
+    sectionColor: "#2E7DE9"
+    keyColor: "#2E7DE9"
+    numKeyColor: "#8C6C3E"
+
+  dialog:
+    fgColor: "#3760BF"
+    bgColor: "#E1E2E7"
+    buttonFgColor: "#E1E2E7"
+    buttonBgColor: "#6172B0"
+    buttonFocusFgColor: "#3760BF"
+    buttonFocusBgColor: "#8C6C3E"
+    labelFgColor: "#2E7DE9"
+    fieldFgColor: "#3760BF"
+
+  frame:
+    border:
+      fgColor: "#A1A6C5"
+      focusColor: "#2E7DE9"
+
+    menu:
+      fgColor: "#6172B0"
+      keyColor: "#2E7DE9"
+      numKeyColor: "#8C6C3E"
+
+    crumbs:
+      fgColor: "#E1E2E7"
+      bgColor: "#6172B0"
+      activeColor: "#8C6C3E"
+
+    status:
+      newColor: "#587539"
+      modifyColor: "#8C6C3E"
+      addColor: "#2E7DE9"
+      pendingColor: "#8C6C3E"
+      errorColor: "#F52A65"
+      highlightColor: "#007197"
+      killColor: "#F52A65"
+      completedColor: "#6172B0"
+
+    title:
+      fgColor: "#3760BF"
+      bgColor: default
+      highlightColor: "#2E7DE9"
+      counterColor: "#9854F1"
+      filterColor: "#007197"
+
+  views:
+    table:
+      fgColor: "#3760BF"
+      bgColor: default
+
+      # Current row. Blue-grey, not green.
+      cursorFgColor: "#E1E2E7"
+      cursorBgColor: "#2E7DE9"
+
+      markColor: "#8C6C3E"
+
+      header:
+        fgColor: "#2E7DE9"
+        bgColor: default
+        sorterColor: "#8C6C3E"
+        selectedSortColumnColor: "#9854F1"
+
+    xray:
+      fgColor: "#3760BF"
+      bgColor: default
+      cursorColor: "#B7C1E3"
+      graphicColor: "#2E7DE9"
+      showIcons: true
+
+    yaml:
+      keyColor: "#2E7DE9"
+      colonColor: "#6172B0"
+      valueColor: "#3760BF"
+
+    logs:
+      fgColor: "#3760BF"
+      bgColor: default
+
+      indicator:
+        fgColor: "#007197"
+        bgColor: default
+        toggleOnColor: "#587539"
+        toggleOffColor: "#6172B0"
+
+    charts:
+      bgColor: default
+      dialBgColor: default
+      chartBgColor: default
+      defaultDialColors:
+        - "#2E7DE9"
+        - "#F52A65"
+      defaultChartColors:
+        - "#2E7DE9"
+        - "#8C6C3E"

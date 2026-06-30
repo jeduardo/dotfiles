@@ -1,7 +1,8 @@
 # ~/.config/ghostty/config
 
 #theme = dark:nord,light:Ef-Deuteranopia-Light
-theme = dark:Nord,light:Nord Light
+#theme = dark:Nord,light:Nord Light
+theme = dark:tokyonight_storm,light:tokyonight_day
 #theme = dark:Rose Pine,light:Rose Pine Dawn
 #theme = dark:Gruvbox Material Dark,light:Gruvbox Material Light
 #theme = dark:Flexoki Dark,light:Flexoki Light
@@ -21,7 +22,8 @@ background-blur = 10
 cursor-style = block
 shell-integration-features = no-cursor
 
-theme = dark:Nord,light:Nord Light
+#theme = dark:Nord,light:Nord Light
+theme = dark:tokyonight_storm,light:tokyonight_day
 
 # Clear previous font-family values, then set the exact WezTerm font.
 font-family = ""
