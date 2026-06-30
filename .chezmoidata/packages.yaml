@@ -79,6 +79,7 @@ packages:
       - the_silver_searcher
       - tmux
       - tree
+      - ttl
       - uv
       - vercel-cli
       - virtualenvwrapper
