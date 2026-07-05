@@ -98,8 +98,27 @@ set -g @tokyo-night-tmux_window_id_style none
 set -g @tokyo-night-tmux_pane_id_style none
 set -g @tokyo-night-tmux_zoom_id_style none
 set -g @plugin "janoamaral/tokyo-night-tmux"
+{{ if eq .chezmoi.os "darwin" -}}
+# tmux-dark-notify is macOS-only and reloads the Tokyo Night wrapper matching
+# the current system appearance whenever dark-notify reports a change.
+set -g @plugin "erikw/tmux-dark-notify"
+set -g @dark-notify-theme-path-light "$HOME/.config/tmux/themes/tokyonight-day.conf"
+set -g @dark-notify-theme-path-dark "$HOME/.config/tmux/themes/tokyonight-storm.conf"
+{{ end -}}
 #set -g @plugin 'egel/tmux-gruvbox'
 #set -g @tmux-gruvbox 'light'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
+
+# The Tokyo Night plugin sets status-left during initialization, so the
+# high-contrast override must follow TPM.
+if-shell -F '#{==:#{@tokyo-night-tmux_theme},day}' \
+  'set -g status-left "#[fg=#e1e2e7,bg=#34548a,bold] #{?client_prefix,󰠠 ,󰤂 }#S@#H "' \
+  'set -g status-left "#[fg=#1d202f,bg=#7aa2f7,bold] #{?client_prefix,󰠠 ,󰤂 }#S@#H "'
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Reapply the last theme selected by tmux-dark-notify after all TPM plugins.
+if-shell '[ -r "$HOME/.local/state/tmux/tmux-dark-notify-theme.conf" ]' \
+  'source-file "$HOME/.local/state/tmux/tmux-dark-notify-theme.conf"'
+{{ end -}}

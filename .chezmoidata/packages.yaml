@@ -3,6 +3,7 @@ packages:
     taps:
       - amar1729/formulae # browserpass
       - aws/tap
+      - cormacrelf/tap # dark-notify
     brews:
       - act
       - adr-tools
@@ -22,6 +23,7 @@ packages:
       - crane
       - d2
       - delve
+      - dark-notify
       - direnv
       - dive
       - dockutil

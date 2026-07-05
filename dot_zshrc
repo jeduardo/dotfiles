@@ -178,11 +178,39 @@ function kubecolor_theme {
   fi
 }
 
+function set_kubecolor_theme {
+  if is_dark_mode; then
+    export KUBECOLOR_PRESET=dark
+    export KUBECOLOR_THEME_BASE_DANGER="#f7768e"
+    export KUBECOLOR_THEME_BASE_INFO="#c0caf5"
+    export KUBECOLOR_THEME_BASE_MUTED="#a9b1d6:italic"
+    export KUBECOLOR_THEME_BASE_PRIMARY="#bb9af7"
+    export KUBECOLOR_THEME_BASE_SECONDARY="#7dcfff"
+    export KUBECOLOR_THEME_BASE_SUCCESS="#9ece6a"
+    export KUBECOLOR_THEME_BASE_WARNING="#e0af68"
+    export KUBECOLOR_THEME_TABLE_HEADER="#c0caf5:bold"
+    export KUBECOLOR_THEME_TABLE_COLUMNS="#c0caf5/#7dcfff"
+  else
+    export KUBECOLOR_PRESET=light
+    export KUBECOLOR_THEME_BASE_DANGER="#f52a65"
+    export KUBECOLOR_THEME_BASE_INFO="#3760bf"
+    export KUBECOLOR_THEME_BASE_MUTED="#6172b0:italic"
+    export KUBECOLOR_THEME_BASE_PRIMARY="#9854f1"
+    export KUBECOLOR_THEME_BASE_SECONDARY="#007197"
+    export KUBECOLOR_THEME_BASE_SUCCESS="#587539"
+    export KUBECOLOR_THEME_BASE_WARNING="#8c6c3e"
+    export KUBECOLOR_THEME_TABLE_HEADER="#3760bf:bold"
+    export KUBECOLOR_THEME_TABLE_COLUMNS="#3760bf/#007197"
+  fi
+}
+
 export K9S_SKIN="$(k9s_skin)"
-export KUBECOLOR_PRESET="$(kubecolor_theme)"
+# export KUBECOLOR_PRESET="$(kubecolor_theme)"
+set_kubecolor_theme
 
 function kubecolor {
-  export KUBECOLOR_PRESET="$(kubecolor_theme)"
+  # export KUBECOLOR_PRESET="$(kubecolor_theme)"
+  set_kubecolor_theme
   command kubecolor --kubecolor-theme="$KUBECOLOR_PRESET" "$@"
 }
 

@@ -20,6 +20,8 @@ background-opacity = 1
 background-blur = 10
 
 cursor-style = block
+# cursor-style-blink =
+cursor-style-blink = true
 shell-integration-features = no-cursor
 
 #theme = dark:Nord,light:Nord Light
