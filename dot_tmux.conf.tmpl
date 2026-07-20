@@ -40,6 +40,10 @@ bind -n M-Down select-pane -D
 setw -g monitor-activity on
 set -g visual-activity off
 
+# Preserve modified keys for terminal applications such as Pi.
+set -g extended-keys on
+set -g extended-keys-format csi-u
+
 # color support
 # If the term variable is not screen, then home/end don't work in vim
 # https://superuser.com/questions/532431/control-left-and-control-right-not-working-in-vim-within-a-screen-session
