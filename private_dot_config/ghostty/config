@@ -22,7 +22,7 @@ background-blur = 10
 cursor-style = block
 # cursor-style-blink =
 cursor-style-blink = true
-shell-integration-features = no-cursor
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo
 
 #theme = dark:Nord,light:Nord Light
 theme = dark:tokyonight_storm,light:tokyonight_day
