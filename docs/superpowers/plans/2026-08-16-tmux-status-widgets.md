@@ -80,7 +80,8 @@ Expected: exit status `0` with no output.
 - [ ] **Step 5: Apply the managed files and reload tmux**
 
 ```zsh
-chezmoi apply -- \
+worktree_root=$(git rev-parse --show-toplevel)
+chezmoi --source "$worktree_root" apply -- \
   "$HOME/.tmux.conf" \
   "$HOME/.config/tmux/themes/tokyonight-status-right.conf" \
   "$HOME/.config/tmux/themes/tokyonight-storm.conf" \
