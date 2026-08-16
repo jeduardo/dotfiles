@@ -126,3 +126,7 @@ if-shell -F '#{==:#{@tokyo-night-tmux_theme},day}' \
 if-shell '[ -r "$HOME/.local/state/tmux/tmux-dark-notify-theme.conf" ]' \
   'source-file "$HOME/.local/state/tmux/tmux-dark-notify-theme.conf"'
 {{ end -}}
+
+# Tokyo Night includes hidden widget commands in status-right; replace them
+# after every plugin/theme initialization so tmux only launches path and Git.
+source-file "$HOME/.config/tmux/themes/tokyonight-status-right.conf"
