@@ -2,7 +2,6 @@ packages:
   darwin:
     taps:
       - amar1729/formulae # browserpass
-      - aws/tap
       - cormacrelf/tap # dark-notify
     brews:
       - act
@@ -124,16 +123,13 @@ packages:
       - localsend
       - monitorcontrol
       - music-decoy
-      - ngrok/ngrok/ngrok
       - nightfall
       - orbstack
       - paintbrush
-      - pgadmin4
       - rectangle
       - spotify
       - stats
       - syncthing-app
-      - temurin
       - utm
       - visual-studio-code
       - vlc
