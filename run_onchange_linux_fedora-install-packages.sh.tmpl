@@ -1,19 +1,25 @@
 {{- if eq .chezmoi.os "linux" -}}
 {{- $id := lower .chezmoi.osRelease.id -}}
 {{- if eq $id "fedora" -}}
-{{- $variant := lower (default "" (get .chezmoi.osRelease "variant_id")) -}}
+{{- $variant := lower (default "" (get .chezmoi.osRelease "variantID")) -}}
 {{- if eq $variant "" -}}
 {{- $variant = lower (default "" (get .chezmoi.osRelease "variant")) -}}
 {{- end -}}
 #!/usr/bin/env bash
 
 set -euo pipefail
+{{- with (index .packages.linux.fedora.coprs $variant) }}
+# COPR repositories
+{{ range . -}}
+sudo dnf -y copr enable {{ . | quote }}
+{{ end -}}
+{{- end }}
 # dnf packages
 sudo dnf -y install \
-{{- range .packages.linux.fedora.common }}
+{{- range .packages.linux.fedora.packages.common }}
   {{ . | quote }} \
 {{- end }}
-{{- with (index .packages.linux.fedora $variant) }}
+{{- with (index .packages.linux.fedora.packages $variant) }}
 {{- range . }}
   {{ . | quote }} \
 {{- end }}

@@ -174,21 +174,26 @@ packages:
       - python3-virtualenvwrapper
       - tmux
     fedora:
-      common:
-        - btop
-        - direnv
-        - cadaver
-        - fastfetch
-        - git
-        - htop
-        - lftp
-        - most
-        - nodejs
-        - pnpm
-        - neovim
-        - python3-virtualenvwrapper
-        - uv
-      workstation:
-        - dejavu-fonts-all
-        - foliate
-        - gnome-shell-extension-light-style
+      coprs:
+        workstation:
+          - scottames/ghostty
+      packages:
+        common:
+          - btop
+          - direnv
+          - cadaver
+          - fastfetch
+          - git
+          - htop
+          - lftp
+          - most
+          - nodejs
+          - pnpm
+          - neovim
+          - python3-virtualenvwrapper
+          - uv
+        workstation:
+          - dejavu-fonts-all
+          - foliate
+          - ghostty
+          - gnome-shell-extension-light-style
