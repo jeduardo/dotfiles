@@ -31,8 +31,9 @@ theme = dark:tokyonight_storm,light:tokyonight_day
 font-family = ""
 font-family = "DejaVu Sans Mono for Powerline"
 
-# Your WezTerm effective size is probably 13 on the Retina "More Space" mode.
-font-size = 13
+# The Surface matches WezTerm's compact 7 pt host override.
+# On macOS, 13 pt matches WezTerm on the Retina "More Space" display mode.
+font-size = {{ if eq .chezmoi.hostname "surface" }}7{{ else }}13{{ end }}
 
 # Equivalent to your WezTerm harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 font-feature = -calt,-clig,-liga
