@@ -91,7 +91,7 @@ if-shell 'case "$(uname -s)" in Darwin) [ "$(defaults read -g AppleInterfaceStyl
   'set -g @tokyo-night-tmux_theme storm' \
   'set -g @tokyo-night-tmux_theme day'
 
-set -g @tokyo-night-tmux_show_git 1
+set -g @tokyo-night-tmux_show_git 0
 set -g @tokyo-night-tmux_show_battery_widget 1
 set -g @tokyo-night-tmux_show_path 1
 set -g @tokyo-night-tmux_show_hostname 1
@@ -114,6 +114,9 @@ set -g @dark-notify-theme-path-dark "$HOME/.config/tmux/themes/tokyonight-storm.
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
+
+# The theme defaults to five seconds; reduce widget polling and redraws.
+set -g status-interval 15
 
 # The Tokyo Night plugin sets status-left during initialization, so the
 # high-contrast override must follow TPM.
