@@ -1,0 +1,39 @@
+#!/bin/bash
+# Codex caches the terminal's default foreground/background colors at startup.
+# When Ghostty follows the macOS appearance, Codex therefore keeps painting its
+# composer with a blended RGB color derived from the previous theme.
+#
+# Advertising basic ANSI color support makes that blended background fall back
+# to the terminal default while retaining Codex's ANSI accents. Ghostty can
+# then update the composer background live when its theme changes.
+
+set -e
+
+wrapper_directory="$(cd "$(dirname "$0")" && pwd -P)"
+search_path=""
+
+old_ifs="$IFS"
+IFS=:
+for directory in $PATH; do
+  [[ -n "$directory" ]] || directory="."
+  [[ "$(cd "$directory" 2>/dev/null && pwd -P)" == "$wrapper_directory" ]] && continue
+  if [[ -n "$search_path" ]]; then
+    search_path="${search_path}:"
+  fi
+  search_path="${search_path}${directory}"
+done
+IFS="$old_ifs"
+
+real_codex="$(PATH="$search_path" command -v codex 2>/dev/null || true)"
+if [[ -z "$real_codex" ]]; then
+  echo "codex: could not find the real Codex executable" >&2
+  exit 127
+fi
+
+unset COLORTERM
+if [[ -n "${TMUX:-}" ]]; then
+  export TERM=tmux
+else
+  export TERM=xterm
+fi
+exec "$real_codex" "$@"
