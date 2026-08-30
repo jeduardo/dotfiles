@@ -65,9 +65,10 @@ Expected: exit status 0 with no diagnostics.
 
 - [ ] **Step 3: Verify command resolution and executable mode**
 
-Run: `zsh -lc 'which -a codex'; ls -l ~/.local/bin/codex`
+Run: `zsh -ic 'which -a codex'; ls -l ~/.local/bin/codex`
 
-Expected: `~/.local/bin/codex` appears before `/opt/homebrew/bin/codex`, and its mode is executable.
+Expected: the interactive shell loads `.zshrc`, `~/.local/bin/codex` appears
+before `/opt/homebrew/bin/codex`, and its mode is executable.
 
 - [ ] **Step 4: Verify the installed Codex delegates through the wrapper**
 
