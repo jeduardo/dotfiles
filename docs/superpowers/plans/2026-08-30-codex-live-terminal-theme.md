@@ -14,9 +14,30 @@
 
 **Files:**
 - Create: `tests/executable_codex_test.sh`
+- Create: `tests/fixtures/fake_codex`
 - Test: `tests/executable_codex_test.sh`
 
-- [ ] **Step 1: Write the failing integration test**
+- [ ] **Step 1: Add the downstream Codex test fixture**
+
+```bash
+#!/bin/bash
+
+if [[ -n "${COLORTERM+x}" ]]; then
+  printf 'COLORTERM_SET=true\n'
+else
+  printf 'COLORTERM_SET=false\n'
+fi
+printf 'TERM=%s\n' "${TERM-}"
+printf 'ARG_COUNT=%s\n' "$#"
+argument_number=1
+for argument in "$@"; do
+  printf 'ARG_%s=%s\n' "$argument_number" "$argument"
+  argument_number=$((argument_number + 1))
+done
+exit "${FAKE_CODEX_EXIT:-0}"
+```
+
+- [ ] **Step 2: Write the failing integration test**
 
 ```bash
 #!/bin/bash
@@ -40,22 +61,7 @@ fi
 cp "$wrapper" "${wrapper_directory}/codex"
 chmod +x "${wrapper_directory}/codex"
 
-cat > "${downstream_directory}/codex" <<'FAKE_CODEX'
-#!/bin/bash
-if [[ -n "${COLORTERM+x}" ]]; then
-  printf 'COLORTERM_SET=true\n'
-else
-  printf 'COLORTERM_SET=false\n'
-fi
-printf 'TERM=%s\n' "${TERM-}"
-printf 'ARG_COUNT=%s\n' "$#"
-argument_number=1
-for argument in "$@"; do
-  printf 'ARG_%s=%s\n' "$argument_number" "$argument"
-  argument_number=$((argument_number + 1))
-done
-exit "${FAKE_CODEX_EXIT:-0}"
-FAKE_CODEX
+cp "${repository_root}/tests/fixtures/fake_codex" "${downstream_directory}/codex"
 chmod +x "${downstream_directory}/codex"
 
 assert_contains() {
@@ -108,22 +114,22 @@ assert_contains "$missing_output" 'codex: could not find the real Codex executab
 echo 'PASS: Codex wrapper environment and forwarding'
 ```
 
-- [ ] **Step 2: Make the test executable**
+- [ ] **Step 3: Make the test and fixture executable**
 
-Run: `chmod +x tests/executable_codex_test.sh`
+Run: `chmod +x tests/executable_codex_test.sh tests/fixtures/fake_codex`
 
-Expected: `ls -l tests/executable_codex_test.sh` begins with `-rwxr-xr-x`.
+Expected: `ls -l tests/executable_codex_test.sh tests/fixtures/fake_codex` shows both files beginning with `-rwxr-xr-x`.
 
-- [ ] **Step 3: Run the test and verify the expected failure**
+- [ ] **Step 4: Run the test and verify the expected failure**
 
 Run: `tests/executable_codex_test.sh`
 
 Expected: exit status 1 with `FAIL: missing wrapper: .../private_dot_local/bin/executable_codex`.
 
-- [ ] **Step 4: Commit the failing test**
+- [ ] **Step 5: Commit the failing test**
 
 ```bash
-git add tests/executable_codex_test.sh
+git add tests/executable_codex_test.sh tests/fixtures/fake_codex
 git commit -m "test(codex): cover terminal capability wrapper"
 ```
 
@@ -185,7 +191,7 @@ Expected: exit status 0 with `PASS: Codex wrapper environment and forwarding`.
 
 - [ ] **Step 3: Run static shell validation**
 
-Run: `shellcheck private_dot_local/bin/executable_codex tests/executable_codex_test.sh`
+Run: `shellcheck private_dot_local/bin/executable_codex tests/executable_codex_test.sh tests/fixtures/fake_codex`
 
 Expected: exit status 0 with no diagnostics.
 
@@ -228,6 +234,6 @@ Expected: exit status 0 and the installed Codex version string.
 
 - [ ] **Step 5: Run final repository checks**
 
-Run: `tests/executable_codex_test.sh && shellcheck private_dot_local/bin/executable_codex tests/executable_codex_test.sh && git diff --check && git status --short`
+Run: `tests/executable_codex_test.sh && shellcheck private_dot_local/bin/executable_codex tests/executable_codex_test.sh tests/fixtures/fake_codex && git diff --check && git status --short`
 
 Expected: tests and ShellCheck pass, `git diff --check` prints nothing, and the status contains no unexpected changes.
