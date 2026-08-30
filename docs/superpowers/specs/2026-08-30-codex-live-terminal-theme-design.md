@@ -43,15 +43,7 @@ Codex.
 
 ## Verification
 
-A temporary fake downstream `codex` executable will record its environment and
-arguments. Verification will cover:
-
-- `COLORTERM` is absent in the downstream process.
-- `TERM` is `tmux` when `TMUX` is set.
-- `TERM` is `xterm` when `TMUX` is absent.
-- Arguments are forwarded unchanged.
-- The wrapper skips itself and resolves the downstream executable.
-- A missing downstream executable produces status 127 and a clear error.
-
-Finally, `chezmoi execute-template` and `chezmoi diff` will confirm that the
-source file is valid and deploys to `~/.local/bin/codex` with executable mode.
+ShellCheck will validate the wrapper. `chezmoi diff` will preview the managed
+target before applying it, after which command resolution, executable mode, and
+a real `codex --version` invocation will confirm that the wrapper correctly
+delegates to the installed Codex executable.
