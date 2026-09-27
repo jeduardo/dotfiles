@@ -33,7 +33,11 @@ font-family = "DejaVu Sans Mono for Powerline"
 
 # The Surface matches WezTerm's compact 7 pt host override.
 # On macOS, 13 pt matches WezTerm on the Retina "More Space" display mode.
-font-size = {{ if eq .chezmoi.hostname "surface" }}7{{ else }}13{{ end }}
+font-size = {{ if eq .chezmoi.hostname "surface" }}7{{ else if eq .chezmoi.os "linux" }}9{{ else }}13{{ end }}
+{{ if eq .chezmoi.os "linux" }}
+# Ignore OSC 9/777 notifications from terminal applications such as Codex.
+desktop-notifications = false
+{{ end }}
 
 # Equivalent to your WezTerm harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 font-feature = -calt,-clig,-liga

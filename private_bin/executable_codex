@@ -25,6 +25,9 @@ done
 IFS="$old_ifs"
 
 real_codex="$(PATH="$search_path" command -v codex 2>/dev/null || true)"
+if [[ -z "$real_codex" && -f "$HOME/.local/lib/node_modules/@openai/codex/bin/codex.js" ]]; then
+  real_codex="$HOME/.local/lib/node_modules/@openai/codex/bin/codex.js"
+fi
 if [[ -z "$real_codex" ]]; then
   echo "codex: could not find the real Codex executable" >&2
   exit 127

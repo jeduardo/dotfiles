@@ -1,8 +1,6 @@
 # Disable auto update prompt
 DISABLE_UPDATE_PROMPT=true
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -229,4 +227,5 @@ copy() {
 # export PAGER=less
 # export LESS=-R
 export PAGER=most
-export PATH=$HOME/.local/bin:$HOME/.cargo/bin:$PATH
+# Keep the chezmoi Codex wrapper ahead of package-manager launchers.
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
