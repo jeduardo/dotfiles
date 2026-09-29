@@ -1,3 +1,6 @@
 # Ignoring convenience files from the repo
 README.md
 setup.sh
+{{ if eq .chezmoi.os "darwin" }}
+bin/codex
+{{ end }}
