@@ -3,6 +3,7 @@ packages:
     taps:
       - amar1729/formulae # browserpass
       - cormacrelf/tap # dark-notify
+      - crmne/tap # spotifast
     brews:
       - act
       - adr-tools
@@ -127,7 +128,7 @@ packages:
       - orbstack
       - paintbrush
       - rectangle
-      - spotify
+      - crmne/tap/spotifast
       - stats
       - syncthing-app
       - utm
