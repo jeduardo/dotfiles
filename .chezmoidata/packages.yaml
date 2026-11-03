@@ -42,7 +42,7 @@ packages:
       - helm
       - htop
       - httpie
-      - huggingface-cli
+      - hf
       - imagemagick
       - ipcalc
       - iproute2mac
