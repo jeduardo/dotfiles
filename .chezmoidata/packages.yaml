@@ -78,6 +78,7 @@ packages:
       - ripgrep
       - snyk-cli
       - stern
+      - termaid
       - the_silver_searcher
       - tmux
       - tree
