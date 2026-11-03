@@ -83,7 +83,6 @@ packages:
       - tree
       - ttl
       - uv
-      - vercel-cli
       - virtualenvwrapper
       - xdotool
       - yq
@@ -132,6 +131,7 @@ packages:
       - stats
       - syncthing-app
       - utm
+      - vercel
       - visual-studio-code
       - vlc
       - wezterm
